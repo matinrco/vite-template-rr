@@ -1,3 +1,4 @@
+import type { FC, PropsWithChildren } from "react";
 import {
   isRouteErrorResponse,
   Links,
@@ -10,9 +11,11 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 
-export const links: Route.LinksFunction = () => [];
-
-export const Layout = ({ children }: { children: React.ReactNode }) => {
+/**
+ * the Layout component is a special export for the root route.
+ * it acts as your document's "app shell" for all route components, HydrateFallback, and ErrorBoundary
+ */
+export const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="en">
       <head>
@@ -30,16 +33,18 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default () => <Outlet />;
-
 /**
- * works if ssr disabled
+ * on initial page load, the route component renders only after the client loader is finished.
+ * if exported, a HydrateFallback can render immediately in place of the route component.
  */
-export const HydrateFallback = ({}: Route.HydrateFallbackProps) => (
+export const HydrateFallback: FC<Route.HydrateFallbackProps> = () => (
   <p>loading ...</p>
 );
 
-export const ErrorBoundary = ({ error }: Route.ErrorBoundaryProps) => {
+/**
+ * the top most error boundary for the app, rendered when your app throws an error
+ */
+export const ErrorBoundary: FC<Route.ErrorBoundaryProps> = ({ error }) => {
   let message = "Oops!";
   let details = "An unexpected error occurred.";
   let stack: string | undefined;
@@ -56,14 +61,16 @@ export const ErrorBoundary = ({ error }: Route.ErrorBoundaryProps) => {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
+    <main>
       <h1>{message}</h1>
       <p>{details}</p>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre>
           <code>{stack}</code>
         </pre>
       )}
     </main>
   );
 };
+
+export default Outlet;

@@ -1,6 +1,6 @@
 import type { Route } from "./+types/about";
 
-export const meta: Route.MetaFunction = ({}) => [
+export const meta: Route.MetaFunction = () => [
   {
     title: "about page",
   },
@@ -9,4 +9,6 @@ export const meta: Route.MetaFunction = ({}) => [
 
 export const links: Route.LinksFunction = () => [];
 
-export default () => <p>this is about page</p>;
+const About = () => <p>this is about page</p>;
+
+export default About;
