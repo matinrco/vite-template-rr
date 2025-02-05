@@ -50,7 +50,15 @@ export default [
           "error",
           {
             allowConstantExport: true,
-            allowExportNames: ["meta", "links", "headers", "loader", "action"],
+            allowExportNames: [
+              "meta",
+              "links",
+              "headers",
+              "loader",
+              "clientLoader",
+              "action",
+              "clientAction",
+            ],
           },
         ],
       },
