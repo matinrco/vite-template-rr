@@ -1,3 +1,4 @@
+import type { FC } from "react";
 import type { Route } from "./+types/_index";
 
 export const meta: Route.MetaFunction = () => [
@@ -9,6 +10,6 @@ export const meta: Route.MetaFunction = () => [
 
 export const links: Route.LinksFunction = () => [];
 
-const Index = () => <p>this is index page</p>;
+const Index: FC<Route.ComponentProps> = () => <p>this is index page</p>;
 
 export default Index;
