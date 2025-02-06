@@ -10,6 +10,6 @@ export const meta: Route.MetaFunction = () => [
 
 export const links: Route.LinksFunction = () => [];
 
-const Index: FC<Route.ComponentProps> = () => <p>this is index page</p>;
+const Component: FC<Route.ComponentProps> = () => <p>this is index page</p>;
 
-export default Index;
+export default Component;

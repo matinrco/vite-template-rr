@@ -10,6 +10,6 @@ export const meta: Route.MetaFunction = () => [
 
 export const links: Route.LinksFunction = () => [];
 
-const About: FC<Route.ComponentProps> = () => <p>this is about page</p>;
+const Component: FC<Route.ComponentProps> = () => <p>this is about page</p>;
 
-export default About;
+export default Component;
