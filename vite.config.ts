@@ -4,8 +4,4 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [reactRouter(), tsconfigPaths()],
-  build: {
-    cssMinify: true,
-    ssr: false,
-  },
 });

@@ -51,6 +51,7 @@ export default [
           {
             allowConstantExport: true,
             allowExportNames: [
+              "handle",
               "meta",
               "links",
               "headers",
@@ -66,6 +67,17 @@ export default [
   },
   // ts
   ...pluginTs.configs.recommended,
+  {
+    rules: {
+      // do not check error objects in try...catch  blocks
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          caughtErrors: "none",
+        },
+      ],
+    },
+  },
   // prettier
   pluginPrettier,
 ];

@@ -1,23 +1,61 @@
 import type { FC, PropsWithChildren } from "react";
 import {
+  data,
   isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "react-router";
-
+import { useTranslation } from "react-i18next";
+import { useChangeLanguage } from "remix-i18next/react";
+import { i18nServer, localeCookie } from "~/locales/i18nServer";
 import type { Route } from "./+types/root";
 import "./app.css";
+
+export const handle = {
+  /**
+   * we can add a i18n key with namespaces will need to load
+   * this key can be a single string or an array of strings.
+   */
+  i18n: "common",
+};
+
+export const loader = async ({ request }: Route.LoaderArgs) => {
+  const locale = await i18nServer.getLocale(request);
+
+  return data(
+    {
+      locale,
+    },
+    {
+      headers: {
+        "Set-Cookie": await localeCookie.serialize(locale),
+      },
+    },
+  );
+};
 
 /**
  * the Layout component is a special export for the root route.
  * it acts as your document's "app shell" for all route components, HydrateFallback, and ErrorBoundary
  */
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
+  const { locale } = useLoaderData<typeof loader>();
+  const { i18n } = useTranslation();
+
+  /**
+   * this hook will change the i18n instance language to the current locale
+   * detected by the loader, this way, when we do something to change the
+   * language, this locale will change and i18next will load the correct
+   * translation files
+   */
+  useChangeLanguage(locale);
+
   return (
-    <html lang="en">
+    <html lang={locale} dir={i18n.dir()}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
