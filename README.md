@@ -6,7 +6,8 @@ todo:
 - [ ] i18n type safety
 - [ ] adapt and test docker file with yarn
 - [ ] fonts
-- [ ] storybook
+- [x] storybook
+- [x] storybook i18n integration
 - [ ] design system / aka ui kit
 - [ ] husky + lint-staged
 - [ ] stricter eslint rules

@@ -5,6 +5,7 @@ import pluginReact from "eslint-plugin-react";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
 import pluginPrettier from "eslint-plugin-prettier/recommended";
+import pluginStorybook from "eslint-plugin-storybook";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -80,4 +81,6 @@ export default [
   },
   // prettier
   pluginPrettier,
+  // storybook
+  ...pluginStorybook.configs["flat/recommended"],
 ];
