@@ -9,6 +9,6 @@ todo:
 - [x] storybook
 - [x] storybook i18n integration
 - [ ] design system / aka ui kit
-- [ ] husky + lint-staged
+- [x] husky + lint-staged
 - [ ] stricter eslint rules
 - [ ] data fetching tools (if possible) + example
