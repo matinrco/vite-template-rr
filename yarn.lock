@@ -964,6 +964,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource/inter@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@fontsource/inter@npm:5.1.1"
+  checksum: 10c0/ec7a371bd54fbf8c452a461161dda2fdd2d6989617c670e101e7623429becc917801c107dcce84e263010ecd1a381a01e04b6e7c07275469720c1496a7365bdc
+  languageName: node
+  linkType: hard
+
+"@fontsource/vazirmatn@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@fontsource/vazirmatn@npm:5.1.1"
+  checksum: 10c0/10f6499365b12a1fabca73fd9ce074a35ef3458b7879322364eed6c96c3cf933081f693f786d8372eed22ba7e9dae7d416be136abd12ce4c7f9c46592fa385a6
+  languageName: node
+  linkType: hard
+
 "@humanfs/core@npm:^0.19.1":
   version: 0.19.1
   resolution: "@humanfs/core@npm:0.19.1"
@@ -9615,6 +9629,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "vite-template@workspace:."
   dependencies:
+    "@fontsource/inter": "npm:^5.1.1"
+    "@fontsource/vazirmatn": "npm:^5.1.1"
     "@mantine/carousel": "npm:^7.16.3"
     "@mantine/charts": "npm:^7.16.3"
     "@mantine/code-highlight": "npm:^7.16.3"
