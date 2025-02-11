@@ -11,7 +11,13 @@ import {
 } from "react-router";
 import { useTranslation } from "react-i18next";
 import { useChangeLanguage } from "remix-i18next/react";
+import {
+  ColorSchemeScript,
+  MantineProvider,
+  mantineHtmlProps,
+} from "@mantine/core";
 import { i18nServer, localeCookie } from "~/locales/i18nServer";
+import { theme } from "~/utils/theme";
 import type { Route } from "./+types/root";
 import "./app.css";
 
@@ -55,15 +61,16 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
   useChangeLanguage(locale);
 
   return (
-    <html lang={locale} dir={i18n.dir()}>
+    <html lang={locale} dir={i18n.dir()} {...mantineHtmlProps}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <ColorSchemeScript />
         <Meta />
         <Links />
       </head>
       <body>
-        {children}
+        <MantineProvider theme={theme}>{children}</MantineProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
