@@ -16,6 +16,8 @@
     "postinstall": "husky"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.1.1",
+    "@fontsource/vazirmatn": "^5.1.1",
     "@react-router/fs-routes": "^7.1.4",
     "@react-router/node": "^7.1.4",
     "@react-router/serve": "^7.1.4",
