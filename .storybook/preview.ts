@@ -1,6 +1,7 @@
 import type { Preview } from "@storybook/react";
 import { i18nConfig } from "~/locales/i18nConfig";
 import { I18n as decoratorI18n } from "./decorators/i18n";
+import "~/app.css";
 
 export const decorators = [decoratorI18n];
 
