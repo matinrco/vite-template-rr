@@ -17,7 +17,7 @@ import {
   mantineHtmlProps,
 } from "@mantine/core";
 import { i18nServer, localeCookie } from "~/locales/i18nServer";
-import { theme } from "~/utils/theme";
+import { createTheme } from "~/utils/createTheme";
 import type { Route } from "./+types/root";
 import "./app.css";
 
@@ -70,7 +70,9 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
         <Links />
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider theme={createTheme({ dir: i18n.dir() })}>
+          {children}
+        </MantineProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

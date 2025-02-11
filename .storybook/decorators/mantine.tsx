@@ -3,7 +3,8 @@ import type { StoryFn, StoryContext } from "@storybook/react";
 import { addons } from "@storybook/preview-api";
 import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
 import { MantineProvider, useMantineColorScheme } from "@mantine/core";
-import { theme } from "~/utils/theme";
+import i18n from "i18next";
+import { createTheme } from "~/utils/createTheme";
 
 const channel = addons.getChannel();
 
@@ -25,8 +26,10 @@ const ColorSchemeWrapper: FC<PropsWithChildren> = ({ children }) => {
 };
 
 export const Mantine = (Story: StoryFn, context: StoryContext) => {
+  const { locale } = context.globals;
+
   return (
-    <MantineProvider theme={theme}>
+    <MantineProvider theme={createTheme({ dir: i18n.dir(locale) })}>
       <ColorSchemeWrapper>{Story(context.args, context)}</ColorSchemeWrapper>
     </MantineProvider>
   );
