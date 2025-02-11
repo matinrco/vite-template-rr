@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import type { StoryFn, StoryContext } from "@storybook/react";
 import { I18nextProvider } from "react-i18next";
-import { i18n } from "./utils";
+import { i18n } from "./instance";
 
 export const I18n = (Story: StoryFn, context: StoryContext) => {
   const { locale } = context.globals;
