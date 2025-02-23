@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { useLoaderData, Link } from "react-router";
+import { useLoaderData, Link, href } from "react-router";
 import type { Route } from "./+types/posts_._index";
 import { getPosts } from "~/api/getPosts";
 
@@ -24,7 +24,10 @@ const Component: FC<Route.ComponentProps> = () => {
     <div>
       <h1>Posts ({Array.isArray(posts) ? posts.length : 0} items)</h1>
       {posts.map((post, index) => (
-        <Link key={index} to={`/posts/${post?.id}`}>
+        <Link
+          key={index}
+          to={href("/posts/:id", { id: (post?.id || 0).toString() })}
+        >
           <div>
             <h2>{post?.title}</h2>
             <p>{post?.body}</p>
