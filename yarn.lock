@@ -1962,9 +1962,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-router/dev@npm:^7.1.5":
-  version: 7.1.5
-  resolution: "@react-router/dev@npm:7.1.5"
+"@react-router/dev@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "@react-router/dev@npm:7.2.0"
   dependencies:
     "@babel/core": "npm:^7.21.8"
     "@babel/generator": "npm:^7.21.5"
@@ -1975,7 +1975,7 @@ __metadata:
     "@babel/traverse": "npm:^7.23.2"
     "@babel/types": "npm:^7.22.5"
     "@npmcli/package-json": "npm:^4.0.1"
-    "@react-router/node": "npm:7.1.5"
+    "@react-router/node": "npm:7.2.0"
     arg: "npm:^5.0.1"
     babel-dead-code-elimination: "npm:^1.0.6"
     chokidar: "npm:^4.0.0"
@@ -1996,8 +1996,8 @@ __metadata:
     valibot: "npm:^0.41.0"
     vite-node: "npm:3.0.0-beta.2"
   peerDependencies:
-    "@react-router/serve": ^7.1.5
-    react-router: ^7.1.5
+    "@react-router/serve": ^7.2.0
+    react-router: ^7.2.0
     typescript: ^5.1.0
     vite: ^5.1.0 || ^6.0.0
     wrangler: ^3.28.2
@@ -2010,75 +2010,75 @@ __metadata:
       optional: true
   bin:
     react-router: bin.js
-  checksum: 10c0/32a35b73dddffba789eacf2ed15e65c693c87f9e0fbca03ca15999faeef68ab5c2a2da6c2f205e5100557fcf907e81f79e3b34c3c49c98b4489c34f5a20dd83a
+  checksum: 10c0/057e39c25799bab95c22fc7c01b100812a37f0ea4d9baf2bbb9eebc310fff562270fb5f40e299a580d2a45448a61c9f5ee1d281697f6020569d61c506b0af795
   languageName: node
   linkType: hard
 
-"@react-router/express@npm:7.1.5":
-  version: 7.1.5
-  resolution: "@react-router/express@npm:7.1.5"
+"@react-router/express@npm:7.2.0":
+  version: 7.2.0
+  resolution: "@react-router/express@npm:7.2.0"
   dependencies:
-    "@react-router/node": "npm:7.1.5"
+    "@react-router/node": "npm:7.2.0"
   peerDependencies:
     express: ^4.17.1
-    react-router: 7.1.5
+    react-router: 7.2.0
     typescript: ^5.1.0
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/db026b322aa14dca227ca255e41c09332d5e6f1c1bc789805ceffc154f9e597b54ae368b1b0e93790cb749ba6988b682ebe2f029b6851f32e16dbb4c168d4e62
+  checksum: 10c0/0b097b7a0bf89f85828a6d74e34cf60146e07b0364614bdc08e783452ba0023902593358d931161c4f0172756eac03548e856aa77eeed5081d38cabec9220d77
   languageName: node
   linkType: hard
 
-"@react-router/fs-routes@npm:^7.1.5":
-  version: 7.1.5
-  resolution: "@react-router/fs-routes@npm:7.1.5"
+"@react-router/fs-routes@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "@react-router/fs-routes@npm:7.2.0"
   dependencies:
     minimatch: "npm:^9.0.0"
   peerDependencies:
-    "@react-router/dev": ^7.1.5
+    "@react-router/dev": ^7.2.0
     typescript: ^5.1.0
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/53eb22d460c12d86015eb04da62b2b292df1facd8cb3152a85ce794593daef8b1df7b56a75ee8ae5bcb8e4603459d2f3794b6498f4264a942836b73d51470bef
+  checksum: 10c0/aee8f8cbe9766f33c7704abc5d809b51defc1a1cfa838d5c2fe7f1d9bcd23cb2effcd7f1ddaddc60029f9b2863bf7ba683649d5d789d30672d6686ee549331f6
   languageName: node
   linkType: hard
 
-"@react-router/node@npm:7.1.5, @react-router/node@npm:^7.1.5":
-  version: 7.1.5
-  resolution: "@react-router/node@npm:7.1.5"
+"@react-router/node@npm:7.2.0, @react-router/node@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "@react-router/node@npm:7.2.0"
   dependencies:
     "@mjackson/node-fetch-server": "npm:^0.2.0"
     source-map-support: "npm:^0.5.21"
     stream-slice: "npm:^0.1.2"
     undici: "npm:^6.19.2"
   peerDependencies:
-    react-router: 7.1.5
+    react-router: 7.2.0
     typescript: ^5.1.0
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/44dafd5f426f874c959c24480d504468f2ba69ca655783cf4428615f2d0f9eb8385546580465e145684181bdb69d7e730dba01720798f05a238dcf84143ae3da
+  checksum: 10c0/f1b45cb355f2557b6fdf785089fc3fcdb6fd34737e88b0c5c77d4bba422c7d54cfcc2a75010a2496c44f8342796fdc82f2a20f14c2e10d6d4e68c556e2272409
   languageName: node
   linkType: hard
 
-"@react-router/serve@npm:^7.1.5":
-  version: 7.1.5
-  resolution: "@react-router/serve@npm:7.1.5"
+"@react-router/serve@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "@react-router/serve@npm:7.2.0"
   dependencies:
-    "@react-router/express": "npm:7.1.5"
-    "@react-router/node": "npm:7.1.5"
+    "@react-router/express": "npm:7.2.0"
+    "@react-router/node": "npm:7.2.0"
     compression: "npm:^1.7.4"
     express: "npm:^4.19.2"
     get-port: "npm:5.1.1"
     morgan: "npm:^1.10.0"
     source-map-support: "npm:^0.5.21"
   peerDependencies:
-    react-router: 7.1.5
+    react-router: 7.2.0
   bin:
     react-router-serve: bin.js
-  checksum: 10c0/8b2f04ef6c1d4f761376a25a12a8727b9527064380bf2721bc09dce863a9a13d139bcdede89878c96602d0fc3824c5891f64148b03dd518b26d3922707efa89c
+  checksum: 10c0/56809b846b0e9255e7e9102a7d55a0872351c8f9a87b1d1bd2bd98347545f25db235a80bf8e76fb12d43dc3afbeb9e932306862f148cf1177c1531f1d803d3da
   languageName: node
   linkType: hard
 
@@ -8024,9 +8024,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router@npm:^7.1.5":
-  version: 7.1.5
-  resolution: "react-router@npm:7.1.5"
+"react-router@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "react-router@npm:7.2.0"
   dependencies:
     "@types/cookie": "npm:^0.6.0"
     cookie: "npm:^1.0.1"
@@ -8038,7 +8038,7 @@ __metadata:
   peerDependenciesMeta:
     react-dom:
       optional: true
-  checksum: 10c0/c0013102c7a02d26cd2353fa3749bd229fbcfedd291710540be1765d703861f96a34ef0114dd5ee8d9a728e87f3a5698387058f9539b39604f331505f507d912
+  checksum: 10c0/eb3fe57405a90d22f0a5455a3f73ec60fe2808a579d37bf130c192dfde18ebab06353e2cda2ed0f67701a6c43445eab1c1b6caa1347e5635dc65ff3028b7c2e2
   languageName: node
   linkType: hard
 
@@ -9665,10 +9665,10 @@ __metadata:
   dependencies:
     "@fontsource/inter": "npm:^5.1.1"
     "@fontsource/vazirmatn": "npm:^5.1.1"
-    "@react-router/dev": "npm:^7.1.5"
-    "@react-router/fs-routes": "npm:^7.1.5"
-    "@react-router/node": "npm:^7.1.5"
-    "@react-router/serve": "npm:^7.1.5"
+    "@react-router/dev": "npm:^7.2.0"
+    "@react-router/fs-routes": "npm:^7.2.0"
+    "@react-router/node": "npm:^7.2.0"
+    "@react-router/serve": "npm:^7.2.0"
     "@storybook/addon-essentials": "npm:^8.5.3"
     "@storybook/addon-interactions": "npm:^8.5.3"
     "@storybook/addon-onboarding": "npm:^8.5.3"
@@ -9708,7 +9708,7 @@ __metadata:
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
     react-i18next: "npm:^15.4.0"
-    react-router: "npm:^7.1.5"
+    react-router: "npm:^7.2.0"
     react-router-devtools: "npm:^1.1.4"
     remix-i18next: "npm:^7.0.2"
     storybook: "npm:^8.5.3"
