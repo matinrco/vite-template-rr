@@ -2,11 +2,6 @@
 export default {
   extends: ["stylelint-config-standard-scss"],
   rules: {
-    "scss/no-duplicate-mixins": null,
-    "scss/at-mixin-pattern": null,
-    "scss/at-rule-no-unknown": null,
-    "custom-property-pattern": null,
-    "custom-property-empty-line-before": null,
     "declaration-empty-line-before": null,
     "declaration-block-no-redundant-longhand-properties": null,
     "alpha-value-notation": null,
@@ -17,7 +12,13 @@ export default {
     "comment-empty-line-before": null,
     "value-keyword-case": null,
     "media-feature-range-notation": null,
+    "custom-property-pattern": null,
+    "custom-property-empty-line-before": null,
+    "scss/no-duplicate-mixins": null,
+    "scss/at-mixin-pattern": null,
+    "scss/at-rule-no-unknown": null,
     "selector-class-pattern": null,
+    "selector-id-pattern": null,
     "selector-not-notation": null,
     "selector-pseudo-class-no-unknown": [
       true,
