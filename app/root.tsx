@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useChangeLanguage } from "remix-i18next/react";
 import {
   ColorSchemeScript,
+  DirectionProvider,
   MantineProvider,
   mantineHtmlProps,
 } from "@mantine/core";
@@ -70,9 +71,11 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
         <Links />
       </head>
       <body>
-        <MantineProvider theme={createTheme({ dir: i18n.dir() })}>
-          {children}
-        </MantineProvider>
+        <DirectionProvider initialDirection={i18n.dir()}>
+          <MantineProvider theme={createTheme({ dir: i18n.dir() })}>
+            {children}
+          </MantineProvider>
+        </DirectionProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
