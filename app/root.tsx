@@ -66,13 +66,16 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <ColorSchemeScript />
+        <ColorSchemeScript defaultColorScheme="auto" />
         <Meta />
         <Links />
       </head>
       <body>
         <DirectionProvider initialDirection={i18n.dir()}>
-          <MantineProvider theme={createTheme({ dir: i18n.dir() })}>
+          <MantineProvider
+            defaultColorScheme="auto"
+            theme={createTheme({ dir: i18n.dir() })}
+          >
             {children}
           </MantineProvider>
         </DirectionProvider>
