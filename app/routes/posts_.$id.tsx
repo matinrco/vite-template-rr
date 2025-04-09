@@ -1,7 +1,9 @@
 import type { FC } from "react";
-import { useLoaderData } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 import type { Route } from "./+types/posts_.$id";
-import { getPost } from "~/api/getPost";
+import { withQueryClient, withHydration } from "~/query/config/queryClient";
+import type { GetPostRes } from "~/query/types";
+import { getPostQueryOptions } from "~/query/getPost";
 
 export const meta: Route.MetaFunction = ({ data, params: { id } }) => [
   {
@@ -15,17 +17,19 @@ export const meta: Route.MetaFunction = ({ data, params: { id } }) => [
 
 export const links: Route.LinksFunction = () => [];
 
-export const loader = async ({ params }: Route.LoaderArgs) => {
-  const post = await getPost({ id: params.id });
-  return { post };
-};
+export const loader = withQueryClient<Route.LoaderArgs, { post: GetPostRes }>(
+  async (queryClient, { params: { id } }) => {
+    const post = await queryClient.ensureQueryData(getPostQueryOptions({ id }));
+    return { post };
+  },
+);
 
 export const ErrorBoundary: FC<Route.ErrorBoundaryProps> = ({ params }) => {
   return <p>post id {params.id} not found!</p>;
 };
 
-const Component: FC<Route.ComponentProps> = () => {
-  const { post } = useLoaderData<typeof loader>();
+const Component = withHydration<Route.ComponentProps>(({ params: { id } }) => {
+  const { data: post } = useQuery(getPostQueryOptions({ id }));
 
   return (
     <div>
@@ -33,6 +37,6 @@ const Component: FC<Route.ComponentProps> = () => {
       <p>{post?.body}</p>
     </div>
   );
-};
+});
 
 export default Component;

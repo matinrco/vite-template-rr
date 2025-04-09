@@ -11,7 +11,10 @@ import {
 } from "react-router";
 import { useTranslation } from "react-i18next";
 import { useChangeLanguage } from "remix-i18next/react";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { i18nServer, localeCookie } from "~/locales/i18nServer";
+import { getQueryClient } from "~/query/config/queryClient";
 import type { Route } from "./+types/root";
 import "./app.css";
 
@@ -45,6 +48,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
   const { locale } = useLoaderData<typeof loader>();
   const { i18n } = useTranslation();
+  const queryClient = getQueryClient();
 
   /**
    * this hook will change the i18n instance language to the current locale
@@ -63,7 +67,15 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
         <Links />
       </head>
       <body>
-        {children}
+        <QueryClientProvider client={queryClient}>
+          {children}
+          <ReactQueryDevtools
+            client={queryClient}
+            initialIsOpen={false}
+            buttonPosition="top-right"
+            position="top"
+          />
+        </QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

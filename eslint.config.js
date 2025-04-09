@@ -4,6 +4,7 @@ import pluginTs from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
+import pluginReactQuery from "@tanstack/eslint-plugin-query";
 import pluginPrettier from "eslint-plugin-prettier/recommended";
 import pluginStorybook from "eslint-plugin-storybook";
 
@@ -66,6 +67,8 @@ export default [
       },
     },
   },
+  // react-query
+  ...pluginReactQuery.configs["flat/recommended"],
   // ts
   ...pluginTs.configs.recommended,
   {

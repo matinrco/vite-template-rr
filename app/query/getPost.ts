@@ -1,3 +1,4 @@
+import { queryOptions } from "@tanstack/react-query";
 import { axios } from "./config/axios";
 import type { GetPostReq, GetPostRes } from "./types";
 
@@ -16,3 +17,9 @@ export const getPost = async (req: GetPostReq) => {
 
   return posts;
 };
+
+export const getPostQueryOptions = (req: GetPostReq) =>
+  queryOptions({
+    queryKey: ["get-post", req],
+    queryFn: () => getPost(req),
+  });
