@@ -1,8 +1,8 @@
 import { Link, data, href } from "react-router";
 import type { Route } from "./+types/posts_._index";
 import { wrapRouterFn, withHydration } from "~/rtk/store";
-import type { GetPostsRes } from "~/rtk/query/post/types";
 import { postApis } from "~/rtk/query/post";
+import type { GetPostsRes } from "~/rtk/query/post/types";
 
 export const meta: Route.MetaFunction = ({ data }) => [
   {

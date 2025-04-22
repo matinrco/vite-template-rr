@@ -1,9 +1,8 @@
-import type { FC } from "react";
 import { data } from "react-router";
 import type { Route } from "./+types/posts_.$id";
-import type { GetPostRes } from "~/rtk/query/post/types";
-import { postApis } from "~/rtk/query/post";
 import { wrapRouterFn, withHydration } from "~/rtk/store";
+import { postApis } from "~/rtk/query/post";
+import type { GetPostRes } from "~/rtk/query/post/types";
 
 export const meta: Route.MetaFunction = ({ data, params: { id } }) => [
   {
@@ -30,9 +29,11 @@ export const loader = wrapRouterFn<Route.LoaderArgs, { post: GetPostRes }>(
   },
 );
 
-export const ErrorBoundary: FC<Route.ErrorBoundaryProps> = ({ params }) => {
-  return <p>post id {params.id} not found!</p>;
-};
+export const ErrorBoundary = withHydration<Route.ErrorBoundaryProps>(
+  ({ params }) => {
+    return <p>post id {params.id} not found!</p>;
+  },
+);
 
 const Component = withHydration<Route.ComponentProps>(({ params }) => {
   const { data: post } = postApis.useGetPostQuery({ id: params.id });
