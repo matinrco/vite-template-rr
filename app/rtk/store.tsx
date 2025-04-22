@@ -32,7 +32,7 @@ type ThunkOptions<E> = {
   extraArgument: E;
 };
 
-export type DefaultMiddlewareOptions = {
+type DefaultMiddlewareOptions = {
   thunk?: boolean | ThunkOptions<Context>;
   immutableCheck?: boolean | ImmutableStateInvariantMiddlewareOptions;
   serializableCheck?: boolean | SerializableStateInvariantMiddlewareOptions;
