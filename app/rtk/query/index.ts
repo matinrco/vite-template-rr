@@ -6,7 +6,7 @@ import { baseQuery } from "./baseQuery";
 
 export const api = createApi({
   reducerPath: "api",
-  tagTypes: ["Posts"],
+  tagTypes: ["Posts", "Post"],
   baseQuery,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   extractRehydrationInfo: (action, { reducerPath }): any => {

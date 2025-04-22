@@ -1,7 +1,9 @@
 import type { FC } from "react";
-import { useLoaderData } from "react-router";
+import { data } from "react-router";
 import type { Route } from "./+types/posts_.$id";
-import { getPost } from "~/api/getPost";
+import type { GetPostRes } from "~/rtk/query/post/types";
+import { postApis } from "~/rtk/query/post";
+import { wrapRouterFn, withHydration } from "~/rtk/store";
 
 export const meta: Route.MetaFunction = ({ data, params: { id } }) => [
   {
@@ -15,17 +17,25 @@ export const meta: Route.MetaFunction = ({ data, params: { id } }) => [
 
 export const links: Route.LinksFunction = () => [];
 
-export const loader = async ({ params }: Route.LoaderArgs) => {
-  const post = await getPost({ id: params.id });
-  return { post };
-};
+export const loader = wrapRouterFn<Route.LoaderArgs, { post: GetPostRes }>(
+  async (store, { params }) => {
+    try {
+      const post = await store
+        .dispatch(postApis.endpoints.getPost.initiate({ id: params.id }))
+        .unwrap();
+      return { post };
+    } catch (error) {
+      throw data("Post not found", { status: 404 });
+    }
+  },
+);
 
 export const ErrorBoundary: FC<Route.ErrorBoundaryProps> = ({ params }) => {
   return <p>post id {params.id} not found!</p>;
 };
 
-const Component: FC<Route.ComponentProps> = () => {
-  const { post } = useLoaderData<typeof loader>();
+const Component = withHydration<Route.ComponentProps>(({ params }) => {
+  const { data: post } = postApis.useGetPostQuery({ id: params.id });
 
   return (
     <div>
@@ -33,6 +43,6 @@ const Component: FC<Route.ComponentProps> = () => {
       <p>{post?.body}</p>
     </div>
   );
-};
+});
 
 export default Component;

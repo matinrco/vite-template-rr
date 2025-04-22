@@ -4,7 +4,7 @@ import { wrapRouterFn, withHydration } from "~/rtk/store";
 import type { GetPostsRes } from "~/rtk/query/post/types";
 import { postApis } from "~/rtk/query/post";
 
-export const meta = ({ data }: Route.MetaArgs) => [
+export const meta: Route.MetaFunction = ({ data }) => [
   {
     title: `Posts ${Array.isArray(data.posts) ? data.posts.length : 0} items`,
   },

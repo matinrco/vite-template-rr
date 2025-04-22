@@ -4,6 +4,8 @@ import type {
   CreatePostRes,
   GetPostsReq,
   GetPostsRes,
+  GetPostReq,
+  GetPostRes,
 } from "./types";
 
 export const postApis = api.injectEndpoints({
@@ -19,6 +21,10 @@ export const postApis = api.injectEndpoints({
     getPosts: builder.query<GetPostsRes, GetPostsReq>({
       query: () => "/posts",
       providesTags: ["Posts"],
+    }),
+    getPost: builder.query<GetPostRes, GetPostReq>({
+      query: ({ id }) => `/posts/${id}`,
+      providesTags: ["Post"],
     }),
   }),
   overrideExisting: false,
