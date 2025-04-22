@@ -12,6 +12,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useChangeLanguage } from "remix-i18next/react";
 import { i18nServer, localeCookie } from "~/locales/i18nServer";
+import { wrapRouterRootFn } from "~/rtk/store";
 import type { Route } from "./+types/root";
 import "./app.css";
 
@@ -23,7 +24,10 @@ export const handle = {
   i18n: "common",
 };
 
-export const loader = async ({ request }: Route.LoaderArgs) => {
+export const loader = wrapRouterRootFn<
+  Route.LoaderArgs,
+  ReturnType<typeof data<{ locale: string }>>
+>(async (store, { request }) => {
   const locale = await i18nServer.getLocale(request);
 
   return data(
@@ -36,7 +40,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
       },
     },
   );
-};
+});
 
 /**
  * the Layout component is a special export for the root route.

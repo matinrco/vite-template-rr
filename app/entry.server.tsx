@@ -13,8 +13,10 @@ import {
   initReactI18next as i18nPluginInitReact,
 } from "react-i18next";
 import i18nPluginFsBackend from "i18next-fs-backend";
+import { Provider } from "react-redux";
 import { i18nConfig } from "~/locales/i18nConfig";
 import { i18nServer } from "~/locales/i18nServer";
+import { ensureStoreInstance } from "~/rtk/store";
 
 export const streamTimeout = 5_000;
 
@@ -27,6 +29,7 @@ const handleRequest = async (
   const i18nInstance = createI18nInstance();
   const lng = await i18nServer.getLocale(request);
   const ns = i18nServer.getRouteNamespaces(routerContext);
+  const store = ensureStoreInstance();
 
   await i18nInstance
     // tell our instance to use react-i18next
@@ -56,7 +59,9 @@ const handleRequest = async (
 
     const { pipe, abort } = renderToPipeableStream(
       <I18nProvider i18n={i18nInstance}>
-        <ServerRouter context={routerContext} url={request.url} />
+        <Provider store={store}>
+          <ServerRouter context={routerContext} url={request.url} />
+        </Provider>
       </I18nProvider>,
       {
         [readyOption]() {

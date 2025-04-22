@@ -9,9 +9,13 @@ import {
 import i18nPluginBrowserLanguageDetector from "i18next-browser-languagedetector";
 import i18nPluginHttpBackend from "i18next-http-backend";
 import { getInitialNamespaces } from "remix-i18next/client";
+import { Provider } from "react-redux";
 import { i18nConfig } from "~/locales/i18nConfig";
+import { ensureStoreInstance } from "~/rtk/store";
 
 const hydrate = async () => {
+  const store = ensureStoreInstance();
+
   await i18n
     // tell i18next to use the react-i18next plugin
     .use(i18nPluginInitReact)
@@ -44,9 +48,11 @@ const hydrate = async () => {
     hydrateRoot(
       document,
       <I18nProvider i18n={i18n}>
-        <StrictMode>
-          <HydratedRouter />
-        </StrictMode>
+        <Provider store={store}>
+          <StrictMode>
+            <HydratedRouter />
+          </StrictMode>
+        </Provider>
       </I18nProvider>,
     );
   });
