@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { type FC, useState } from "react";
 import {
   type ActionFunctionArgs,
   type ClientActionFunctionArgs,
@@ -7,7 +7,6 @@ import {
   data,
   redirect,
 } from "react-router";
-import { isEqual, omit } from "lodash-es";
 import {
   type ThunkAction,
   type UnknownAction,
@@ -161,6 +160,7 @@ export const withHydration = <TProps extends object>(
 ): FC<TProps> => {
   const WrappedComponent = (props: TProps) => {
     const store = ensureStoreInstance();
+    const [isHydrated, setIsHydrated] = useState(false);
 
     // check if props contain state from loader/action
     if (
@@ -169,23 +169,11 @@ export const withHydration = <TProps extends object>(
       props.loaderData !== null &&
       HYDRATE_STATE_KEY in props.loaderData
     ) {
-      /**
-       * dispatch hydration action directly if anything is different
-       * for performance optimization and prevent redundant hydration action dispatch,
-       * omit the subscriptions key which is only client related stuff.
-       * compare browser state with incoming server state.
-       */
-      if (
-        !isEqual(
-          omit(store.getState(), [`${api.reducerPath}.subscriptions`]),
-          omit(props.loaderData[HYDRATE_STATE_KEY] as RootState, [
-            `${api.reducerPath}.subscriptions`,
-          ]),
-        )
-      ) {
+      if (!isHydrated) {
         store.dispatch(
           APP_HYDRATE(props.loaderData[HYDRATE_STATE_KEY] as RootState),
         );
+        setIsHydrated(true);
       }
     }
 
