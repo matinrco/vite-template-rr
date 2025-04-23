@@ -7,6 +7,7 @@ import {
   data,
   redirect,
 } from "react-router";
+import { isEqual, omit } from "lodash-es";
 import {
   type ThunkAction,
   type UnknownAction,
@@ -168,10 +169,24 @@ export const withHydration = <TProps extends object>(
       props.loaderData !== null &&
       HYDRATE_STATE_KEY in props.loaderData
     ) {
-      // dispatch hydration action directly
-      store.dispatch(
-        APP_HYDRATE(props.loaderData[HYDRATE_STATE_KEY] as RootState),
-      );
+      /**
+       * dispatch hydration action directly if anything is different
+       * for performance optimization and prevent redundant hydration action dispatch,
+       * omit the subscriptions key which is only client related stuff.
+       * compare browser state with incoming server state.
+       */
+      if (
+        !isEqual(
+          omit(store.getState(), [`${api.reducerPath}.subscriptions`]),
+          omit(props.loaderData[HYDRATE_STATE_KEY] as RootState, [
+            `${api.reducerPath}.subscriptions`,
+          ]),
+        )
+      ) {
+        store.dispatch(
+          APP_HYDRATE(props.loaderData[HYDRATE_STATE_KEY] as RootState),
+        );
+      }
     }
 
     return <Component {...props} />;
