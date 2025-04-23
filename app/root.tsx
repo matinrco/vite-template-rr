@@ -12,7 +12,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useChangeLanguage } from "remix-i18next/react";
 import { i18nServer, localeCookie } from "~/locales/i18nServer";
-import { wrapRouterRootFn } from "~/rtk/store";
+import { wrapRouterRootFn, withHydration } from "~/rtk/store";
 import type { Route } from "./+types/root";
 import "./app.css";
 
@@ -79,40 +79,44 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
  * on initial page load, the route component renders only after the client loader is finished.
  * if exported, a HydrateFallback can render immediately in place of the route component.
  */
-export const HydrateFallback: FC<Route.HydrateFallbackProps> = () => (
+export const HydrateFallback = withHydration<Route.HydrateFallbackProps>(() => (
   <p>loading ...</p>
-);
+));
 
 /**
  * the top most error boundary for the app, rendered when your app throws an error
  */
-export const ErrorBoundary: FC<Route.ErrorBoundaryProps> = ({ error }) => {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
-  let stack: string | undefined;
+export const ErrorBoundary = withHydration<Route.ErrorBoundaryProps>(
+  ({ error }) => {
+    let message = "Oops!";
+    let details = "An unexpected error occurred.";
+    let stack: string | undefined;
 
-  if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
-    details = error.message;
-    stack = error.stack;
-  }
+    if (isRouteErrorResponse(error)) {
+      message = error.status === 404 ? "404" : "Error";
+      details =
+        error.status === 404
+          ? "The requested page could not be found."
+          : error.statusText || details;
+    } else if (import.meta.env.DEV && error && error instanceof Error) {
+      details = error.message;
+      stack = error.stack;
+    }
 
-  return (
-    <main>
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre>
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
-  );
-};
+    return (
+      <main>
+        <h1>{message}</h1>
+        <p>{details}</p>
+        {stack && (
+          <pre>
+            <code>{stack}</code>
+          </pre>
+        )}
+      </main>
+    );
+  },
+);
 
-export default Outlet;
+const Component = withHydration<Route.ComponentProps>(() => <Outlet />);
+
+export default Component;
