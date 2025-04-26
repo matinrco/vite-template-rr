@@ -16,9 +16,9 @@ export const meta: Route.MetaFunction = () => [
 export const links: Route.LinksFunction = () => [];
 
 const Component: FC<Route.ComponentProps> = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(["about", "common"]);
 
-  return <p>this is about page {t("greetings")}</p>;
+  return <p>this is about page {t("common:greetings")}</p>;
 };
 
 export default Component;
