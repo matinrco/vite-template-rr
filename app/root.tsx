@@ -18,7 +18,7 @@ import {
   mantineHtmlProps,
 } from "@mantine/core";
 import { i18nServer, localeCookie } from "~/locales/i18nServer";
-import { createTheme } from "~/utils/createTheme";
+import { createTheme } from "~/utils/theme";
 import type { Route } from "./+types/root";
 import "./app.css";
 

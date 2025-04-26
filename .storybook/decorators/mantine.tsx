@@ -8,7 +8,7 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import i18n from "i18next";
-import { createTheme } from "~/utils/createTheme";
+import { createTheme } from "~/utils/theme";
 
 const channel = addons.getChannel();
 
