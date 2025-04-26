@@ -47,7 +47,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
  */
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
   const { locale } = useLoaderData<typeof loader>();
-  const { i18n } = useTranslation();
+  const { i18n } = useTranslation(["common"]);
   const queryClient = getQueryClient();
 
   /**
