@@ -14,7 +14,7 @@
 }
 
 .secondary {
-  box-shadow: rgba(143 109 109 / 15%) 0 0 0 1px inset;
+  box-shadow: rgb(143 109 109 / 15%) 0 0 0 1px inset;
   background-color: transparent;
   color: #333;
 }
