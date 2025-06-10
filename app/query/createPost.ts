@@ -17,11 +17,13 @@ export const createPost = async (req: CreatePostsReq) => {
   return post;
 };
 
-export const createPostMutationOptions = (
-  req: CreatePostsReq,
-): MutationOptions<CreatePostsRes, Error, CreatePostsReq> => ({
+export const createPostMutationOptions = (): MutationOptions<
+  CreatePostsRes,
+  Error,
+  CreatePostsReq
+> => ({
   mutationKey: ["create-post"],
-  mutationFn: () => createPost(req),
+  mutationFn: createPost,
   onSuccess: () => {
     getQueryClient().invalidateQueries({ queryKey: ["get-posts"] });
     // you can call for each query you'd like to invalidate
