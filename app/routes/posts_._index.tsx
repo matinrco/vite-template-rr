@@ -5,7 +5,7 @@ import { getPosts } from "~/api/getPosts";
 
 export const meta: Route.MetaFunction = ({ data }) => [
   {
-    title: `Posts ${Array.isArray(data.posts) ? data.posts.length : 0} items`,
+    title: `Posts ${Array.isArray(data?.posts) ? data.posts.length : 0} items`,
   },
   { name: "description", content: "list of published posts" },
 ];
