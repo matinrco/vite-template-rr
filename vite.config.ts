@@ -3,6 +3,7 @@ import { reactRouter } from "@react-router/dev/vite";
 import { reactRouterDevTools } from "react-router-devtools";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import devtoolsJson from "vite-plugin-devtools-json";
 
 const isStorybook = process.argv.join("").includes("storybook");
 
@@ -16,5 +17,6 @@ export default defineConfig({
   plugins: [
     ...(isStorybook ? [react()] : [reactRouterDevTools(), reactRouter()]),
     tsconfigPaths(),
+    devtoolsJson(),
   ],
 });
