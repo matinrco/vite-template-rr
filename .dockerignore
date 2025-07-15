@@ -2,3 +2,9 @@
 build
 node_modules
 README.md
+.yarn/install-state.gz
+.DS_Store
+.vscode
+.idea
+.git
+.gitignore
