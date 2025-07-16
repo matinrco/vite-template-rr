@@ -4,16 +4,34 @@ export const axios = genericAxios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
-axios.interceptors.request.use((config) => {
-  // intercepted request is here
+// add a request interceptor
+axios.interceptors.request.use(
+  (config) => {
+    // intercepted request is here
 
-  return config;
-});
+    return config;
+  },
+  (error) => {
+    // do something with request error
 
-axios.interceptors.response.use((response) => {
-  // intercepted response is here
+    return Promise.reject(error);
+  },
+);
 
-  return response;
-});
+// add a response interceptor
+axios.interceptors.response.use(
+  (response) => {
+    // intercepted response is here
+    // any status code that lie within the range of 2xx cause this function to trigger
+
+    return response;
+  },
+  (error) => {
+    // do something with response error
+    // any status codes that falls outside the range of 2xx cause this function to trigger
+
+    return Promise.reject(error);
+  },
+);
 
 export type { AxiosResponse };
