@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { Route } from "./+types/posts_.$id";
-import { withQueryClient, withHydration } from "~/query/config/client";
+import { withQueryClient, withHydration } from "~/query/config";
 import type { GetPostRes } from "~/query/types";
 import { getPostQueryOptions } from "~/query/getPost";
 

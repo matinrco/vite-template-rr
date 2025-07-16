@@ -32,7 +32,7 @@ export const getQueryClient = () => {
 };
 
 export const withQueryClient = <
-  Args,
+  Args extends { request?: Request },
   T extends
     | object
     | ReturnType<typeof redirect>
@@ -43,40 +43,52 @@ export const withQueryClient = <
 ) => {
   return async (args: Args) => {
     const queryClient = getQueryClient();
-    const result = await callback(queryClient, args);
 
-    if (result instanceof Response) {
-      /**
-       * output is a http response and we cant do shit!
-       * just pass it through
-       * this might be a simple react router redirect
-       */
-      return result;
-    } else if (
-      typeof result === "object" &&
-      result !== null &&
-      "init" in result
-    ) {
-      /**
-       * its react router `data()` output
-       * we need to attach dehydratedState
-       */
-      return {
-        ...result,
-        data:
-          result.data && typeof result.data === "object" && result.data !== null
-            ? { ...result.data, dehydratedState: dehydrate(queryClient) }
-            : { dehydratedState: dehydrate(queryClient) },
-      };
+    const exec = async () => {
+      const result = await callback(queryClient, args);
+
+      if (result instanceof Response) {
+        /**
+         * output is a http response and we cant do shit!
+         * just pass it through
+         * this might be a simple react router redirect
+         */
+        return result;
+      } else if (
+        typeof result === "object" &&
+        result !== null &&
+        "init" in result
+      ) {
+        /**
+         * its react router `data()` output
+         * we need to attach dehydratedState
+         */
+        return {
+          ...result,
+          data:
+            result.data &&
+            typeof result.data === "object" &&
+            result.data !== null
+              ? { ...result.data, dehydratedState: dehydrate(queryClient) }
+              : { dehydratedState: dehydrate(queryClient) },
+        };
+      } else {
+        /**
+         * its normal object data output
+         * no special handling needed
+         */
+        return {
+          ...result,
+          dehydratedState: dehydrate(queryClient),
+        };
+      }
+    };
+
+    if (isServer) {
+      const { runWithContext } = await import("./asyncLocalStorage");
+      return await runWithContext({ request: args?.request }, exec);
     } else {
-      /**
-       * its normal object data output
-       * no special handling needed
-       */
-      return {
-        ...result,
-        dehydratedState: dehydrate(queryClient),
-      };
+      return await exec();
     }
   };
 };

@@ -1,7 +1,7 @@
 import { Link, href } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import type { Route } from "./+types/posts_._index";
-import { withQueryClient, withHydration } from "~/query/config/client";
+import { withQueryClient, withHydration } from "~/query/config";
 import type { GetPostsRes } from "~/query/types";
 import { getPostsQueryOptions } from "~/query/getPosts";
 
