@@ -1,6 +1,6 @@
 import { mutationOptions } from "@tanstack/react-query";
 import { type AxiosResponse, axios } from "./config/axios";
-import { getQueryClient } from "./config/queryClient";
+import { getQueryClient } from "./config/client";
 import type { CreatePostsReq, CreatePostsRes } from "./types";
 
 export const createPost = async (req: CreatePostsReq) => {

@@ -14,7 +14,7 @@ import { useChangeLanguage } from "remix-i18next/react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { i18nServer, localeCookie } from "~/locales/i18nServer";
-import { getQueryClient } from "~/query/config/queryClient";
+import { getQueryClient } from "~/query/config/client";
 import type { Route } from "./+types/root";
 import "./app.css";
 
