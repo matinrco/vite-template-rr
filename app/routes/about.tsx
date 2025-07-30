@@ -3,7 +3,7 @@ import type { Route } from "./+types/about";
 import { useTranslation } from "react-i18next";
 
 export const handle = {
-  i18n: ["about"],
+  i18n: ["about"] as const,
 };
 
 export const meta: Route.MetaFunction = () => [
