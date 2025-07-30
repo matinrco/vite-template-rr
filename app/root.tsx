@@ -20,7 +20,7 @@ export const handle = {
    * we can add a i18n key with namespaces will need to load
    * this key can be a single string or an array of strings.
    */
-  i18n: "common",
+  i18n: "common" as const,
 };
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
