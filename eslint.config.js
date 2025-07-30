@@ -52,7 +52,6 @@ export default [
           {
             allowConstantExport: true,
             allowExportNames: [
-              "handle",
               "meta",
               "links",
               "headers",
@@ -60,6 +59,8 @@ export default [
               "clientLoader",
               "action",
               "clientAction",
+              "unstable_middleware",
+              "unstable_clientMiddleware",
             ],
           },
         ],

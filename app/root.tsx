@@ -11,20 +11,16 @@ import {
 } from "react-router";
 import { useTranslation } from "react-i18next";
 import { useChangeLanguage } from "remix-i18next/react";
-import { i18nServer, localeCookie } from "~/locales/i18nServer";
+import { i18nMiddleware, getLocale, localeCookie } from "~/locales/i18nServer";
 import type { Route } from "./+types/root";
 import "./app.css";
 
-export const handle = {
-  /**
-   * we can add a i18n key with namespaces will need to load
-   * this key can be a single string or an array of strings.
-   */
-  i18n: "common" as const,
-};
+export const unstable_middleware: Route.unstable_MiddlewareFunction[] = [
+  i18nMiddleware,
+];
 
-export const loader = async ({ request }: Route.LoaderArgs) => {
-  const locale = await i18nServer.getLocale(request);
+export const loader = async ({ context }: Route.LoaderArgs) => {
+  const locale = getLocale(context);
 
   return data(
     {
@@ -55,7 +51,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
   useChangeLanguage(locale);
 
   return (
-    <html lang={locale} dir={i18n.dir()}>
+    <html lang={i18n.language} dir={i18n.dir()}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
