@@ -11,7 +11,9 @@ import {
 } from "react-dom/server";
 import { isbot } from "isbot";
 import { I18nextProvider as I18nProvider } from "react-i18next";
+import { Provider as ReactReduxProvider } from "react-redux";
 import { getI18nInstance } from "~/locales/i18nServer";
+import { ensureStore } from "~/rtk/store";
 
 export const streamTimeout = 5_000;
 
@@ -25,6 +27,7 @@ const handleRequest = async (
   return new Promise((resolve, reject) => {
     let shellRendered = false;
     const userAgent = request.headers.get("user-agent");
+    const store = ensureStore({ context: routerContext, request });
 
     // ensure requests from bots and SPA Mode renders wait for all content to load before responding
     // https://react.dev/reference/react-dom/server/renderToPipeableStream#waiting-for-all-content-to-load-for-crawlers-and-static-generation
@@ -35,7 +38,9 @@ const handleRequest = async (
 
     const { pipe, abort } = renderToPipeableStream(
       <I18nProvider i18n={getI18nInstance(routerContext)}>
-        <ServerRouter context={entryContext} url={request.url} />
+        <ReactReduxProvider store={store}>
+          <ServerRouter context={entryContext} url={request.url} />
+        </ReactReduxProvider>
       </I18nProvider>,
       {
         [readyOption]() {
