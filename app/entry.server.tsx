@@ -1,20 +1,19 @@
 import { PassThrough } from "node:stream";
-import { resolve } from "node:path";
-import { type EntryContext, ServerRouter } from "react-router";
+import {
+  type EntryContext,
+  type unstable_RouterContextProvider as RouterContextProvider,
+  ServerRouter,
+} from "react-router";
 import { createReadableStreamFromReadable } from "@react-router/node";
 import {
   type RenderToPipeableStreamOptions,
   renderToPipeableStream,
 } from "react-dom/server";
 import { isbot } from "isbot";
-import { createInstance as createI18nInstance } from "i18next";
-import {
-  I18nextProvider as I18nProvider,
-  initReactI18next as i18nPluginInitReact,
-} from "react-i18next";
-import i18nPluginFsBackend from "i18next-fs-backend";
-import { i18nConfig } from "~/locales/i18nConfig";
-import { i18nServer } from "~/locales/i18nServer";
+import { I18nextProvider as I18nProvider } from "react-i18next";
+import { Provider as ReactReduxProvider } from "react-redux";
+import { getI18nInstance } from "~/locales/i18nServer";
+import { getStoreFromContext } from "~/rtk/store";
 
 export const streamTimeout = 5_000;
 
@@ -22,27 +21,9 @@ const handleRequest = async (
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  routerContext: EntryContext,
+  entryContext: EntryContext,
+  routerContext: RouterContextProvider,
 ) => {
-  const i18nInstance = createI18nInstance();
-  const lng = await i18nServer.getLocale(request);
-  const ns = i18nServer.getRouteNamespaces(routerContext);
-
-  await i18nInstance
-    // tell our instance to use react-i18next
-    .use(i18nPluginInitReact)
-    // setup our backend
-    .use(i18nPluginFsBackend)
-    .init({
-      // spread the configuration
-      ...i18nConfig,
-      // the locale we detected above
-      lng,
-      // the namespaces the routes about to render wants to use
-      ns,
-      backend: { loadPath: resolve("./app/locales/{{lng}}/{{ns}}.json") },
-    });
-
   return new Promise((resolve, reject) => {
     let shellRendered = false;
     const userAgent = request.headers.get("user-agent");
@@ -50,13 +31,15 @@ const handleRequest = async (
     // ensure requests from bots and SPA Mode renders wait for all content to load before responding
     // https://react.dev/reference/react-dom/server/renderToPipeableStream#waiting-for-all-content-to-load-for-crawlers-and-static-generation
     const readyOption: keyof RenderToPipeableStreamOptions =
-      (userAgent && isbot(userAgent)) || routerContext.isSpaMode
+      (userAgent && isbot(userAgent)) || entryContext.isSpaMode
         ? "onAllReady"
         : "onShellReady";
 
     const { pipe, abort } = renderToPipeableStream(
-      <I18nProvider i18n={i18nInstance}>
-        <ServerRouter context={routerContext} url={request.url} />
+      <I18nProvider i18n={getI18nInstance(routerContext)}>
+        <ReactReduxProvider store={getStoreFromContext(routerContext)}>
+          <ServerRouter context={entryContext} url={request.url} />
+        </ReactReduxProvider>
       </I18nProvider>,
       {
         [readyOption]() {

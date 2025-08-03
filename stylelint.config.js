@@ -1,6 +1,7 @@
 /** @type {import('stylelint').Config} */
 export default {
   extends: ["stylelint-config-standard-scss"],
+  ignoreFiles: ["build/**"],
   rules: {
     "declaration-empty-line-before": null,
     "declaration-block-no-redundant-longhand-properties": null,

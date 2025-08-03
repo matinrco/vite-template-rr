@@ -1,4 +1,4 @@
-export type CreatePostsRes = {
+export type CreatePostRes = {
   id: number;
   title: string;
   body: string;

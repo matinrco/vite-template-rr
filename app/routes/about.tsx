@@ -2,10 +2,6 @@ import type { FC } from "react";
 import type { Route } from "./+types/about";
 import { useTranslation } from "react-i18next";
 
-export const handle = {
-  i18n: ["about"],
-};
-
 export const meta: Route.MetaFunction = () => [
   {
     title: "about page",

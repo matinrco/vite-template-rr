@@ -17,21 +17,22 @@ import {
   MantineProvider,
   mantineHtmlProps,
 } from "@mantine/core";
-import { i18nServer, localeCookie } from "~/locales/i18nServer";
+import { i18nMiddleware, getLocale, localeCookie } from "~/locales/i18nServer";
+import { rtkMiddleware, useHydrateStore } from "~/rtk/store";
 import { createTheme } from "~/utils/theme";
 import type { Route } from "./+types/root";
 import "./app.css";
 
-export const handle = {
-  /**
-   * we can add a i18n key with namespaces will need to load
-   * this key can be a single string or an array of strings.
-   */
-  i18n: "common",
-};
+export const unstable_middleware: Route.unstable_MiddlewareFunction[] = [
+  i18nMiddleware,
+  rtkMiddleware.server,
+];
 
-export const loader = async ({ request }: Route.LoaderArgs) => {
-  const locale = await i18nServer.getLocale(request);
+export const unstable_clientMiddleware: Route.unstable_ClientMiddlewareFunction[] =
+  [rtkMiddleware.client];
+
+export const loader = async ({ context }: Route.LoaderArgs) => {
+  const locale = getLocale(context);
 
   return data(
     {
@@ -52,6 +53,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
   const { locale } = useLoaderData<typeof loader>();
   const { i18n } = useTranslation(["common"]);
+  useHydrateStore();
 
   /**
    * this hook will change the i18n instance language to the current locale
@@ -62,7 +64,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
   useChangeLanguage(locale);
 
   return (
-    <html lang={locale} dir={i18n.dir()} {...mantineHtmlProps}>
+    <html lang={i18n.language} dir={i18n.dir()} {...mantineHtmlProps}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
