@@ -11,7 +11,7 @@ import i18nPluginHttpBackend from "i18next-http-backend";
 import { getInitialNamespaces } from "remix-i18next/client";
 import { Provider as ReactReduxProvider } from "react-redux";
 import { i18nConfig } from "~/locales/i18nConfig";
-import { ensureStore } from "~/rtk/store";
+import { getClientStore } from "~/rtk/store";
 
 const hydrate = async () => {
   await i18n
@@ -47,7 +47,7 @@ const hydrate = async () => {
       document,
       <I18nProvider i18n={i18n}>
         <StrictMode>
-          <ReactReduxProvider store={ensureStore({})}>
+          <ReactReduxProvider store={getClientStore()}>
             <HydratedRouter />
           </ReactReduxProvider>
         </StrictMode>

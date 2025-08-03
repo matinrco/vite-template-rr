@@ -12,19 +12,19 @@ import {
 import { useTranslation } from "react-i18next";
 import { useChangeLanguage } from "remix-i18next/react";
 import { i18nMiddleware, getLocale, localeCookie } from "~/locales/i18nServer";
-import { rtkMiddleware, wrapRouterFn } from "~/rtk/store";
+import { rtkMiddleware, useHydrateStore } from "~/rtk/store";
 import type { Route } from "./+types/root";
 import "./app.css";
 
 export const unstable_middleware: Route.unstable_MiddlewareFunction[] = [
   i18nMiddleware,
-  rtkMiddleware,
+  rtkMiddleware.server,
 ];
 
-export const loader = wrapRouterFn<
-  Route.LoaderArgs,
-  ReturnType<typeof data<{ locale: string }>>
->(async (store, { context }) => {
+export const unstable_clientMiddleware: Route.unstable_ClientMiddlewareFunction[] =
+  [rtkMiddleware.client];
+
+export const loader = async ({ context }: Route.LoaderArgs) => {
   const locale = getLocale(context);
 
   return data(
@@ -37,7 +37,7 @@ export const loader = wrapRouterFn<
       },
     },
   );
-});
+};
 
 /**
  * the Layout component is a special export for the root route.
@@ -46,6 +46,7 @@ export const loader = wrapRouterFn<
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
   const { locale } = useLoaderData<typeof loader>();
   const { i18n } = useTranslation(["common"]);
+  useHydrateStore();
 
   /**
    * this hook will change the i18n instance language to the current locale
