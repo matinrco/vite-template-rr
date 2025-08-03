@@ -21,7 +21,7 @@
     "@react-router/fs-routes": "^7.7.1",
     "@react-router/node": "^7.7.1",
     "@react-router/serve": "^7.7.1",
-    "@reduxjs/toolkit": "^2.8.2",
+    "@reduxjs/toolkit": "2.5.1",
     "async-mutex": "^0.5.0",
     "axios": "^1.9.0",
     "clsx": "^2.1.1",
