@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   type unstable_RouterContextProvider as RouterContextProvider,
   type unstable_MiddlewareFunction as MiddlewareFunction,
@@ -121,23 +120,27 @@ export const rtkMiddleware: {
   },
 };
 
+let lastHydrationKey = "";
+
 export const useHydrateStore = () => {
   const matches = useMatches();
   const dispatch = useAppDispatch();
-  const [isHydrated, setIsHydrated] = useState(false);
 
-  if (!isHydrated) {
-    const incomingStores = matches
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .map((match) => (match.data as any)?.[HYDRATE_STATE_KEY] as RootState)
-      .filter(Boolean);
+  const incomingStores = matches
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .map((match) => (match.data as any)?.[HYDRATE_STATE_KEY] as RootState)
+    .filter(Boolean);
 
-    if (incomingStores.length === 0) return;
+  if (incomingStores.length === 0) return;
 
-    incomingStores.forEach((incomingStore) => {
-      dispatch(APP_HYDRATE(incomingStore));
-    });
+  // build a stable key to detect unique hydration data
+  const currentKey = JSON.stringify(incomingStores);
 
-    setIsHydrated(true);
-  }
+  if (currentKey === lastHydrationKey) return;
+
+  incomingStores.forEach((incomingStore) => {
+    dispatch(APP_HYDRATE(incomingStore));
+  });
+
+  lastHydrationKey = currentKey;
 };

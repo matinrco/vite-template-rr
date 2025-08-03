@@ -6,7 +6,7 @@ import { baseQuery } from "./baseQuery";
 
 export const api = createApi({
   reducerPath: "api",
-  tagTypes: ["Posts"],
+  tagTypes: ["Post", "Posts"],
   baseQuery,
   // to prevent circular type issues, the return type needs to be annotated as any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
