@@ -8,8 +8,7 @@ import { Mutex } from "async-mutex";
 import queryString from "query-string";
 import type { Context } from "~/rtk/store";
 import type { RootState } from "~/rtk/store";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { api } from "~/rtk/query";
+// import { api } from "~/rtk/query";
 import { isServer } from "~/utils/environment";
 
 const mutex = new Mutex();

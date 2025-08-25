@@ -1,11 +1,11 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQuery } from "~/rtk/query/baseQuery";
 import type { RootState } from "~/rtk/store";
 import { HYDRATE_ACTION } from "~/rtk/constants";
-import { baseQuery } from "./baseQuery";
 
-export const api = createApi({
-  reducerPath: "api",
+export const slice = createApi({
+  reducerPath: "postApi",
   tagTypes: ["Post", "Posts"],
   baseQuery,
   // to prevent circular type issues, the return type needs to be annotated as any

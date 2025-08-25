@@ -1,4 +1,4 @@
-import { api } from "~/rtk/query";
+import { slice } from "./slice";
 import type {
   CreatePostReq,
   CreatePostRes,
@@ -8,7 +8,7 @@ import type {
   GetPostRes,
 } from "./types";
 
-export const postApis = api.injectEndpoints({
+export const postApis = slice.injectEndpoints({
   endpoints: (builder) => ({
     createPost: builder.mutation<CreatePostRes, CreatePostReq>({
       query: (body) => ({
