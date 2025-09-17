@@ -11,6 +11,9 @@
     "**/yarn.lock": true,
     "**/yarn-*.cjs": true
   },
+  "files.associations": {
+    ".env.d.ts": "typescript"
+  },
   "typescript.tsdk": "node_modules/typescript/lib",
   "cSpell.language": "en,fa-IR"
 }

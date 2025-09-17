@@ -4,7 +4,8 @@
     "**/.server/**/*",
     "**/.client/**/*",
     ".react-router/types/**/*",
-    ".storybook/**/*"
+    ".storybook/**/*",
+    ".env.d.ts"
   ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
