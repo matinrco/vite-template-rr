@@ -34,7 +34,7 @@ const genericBaseQuery = fetchBaseQuery({
         "headers" in context.request &&
         context.request.headers
       ) {
-        Array.from(context.request.headers.entries()).map(([k, v]) => {
+        Array.from(context.request.headers.entries()).forEach(([k, v]) => {
           if (typeof v === "string") {
             headers.set(k, v);
           }
