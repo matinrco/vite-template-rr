@@ -1,10 +1,9 @@
 import path from "path";
-import react from "@vitejs/plugin-react";
-import { reactRouter } from "@react-router/dev/vite";
-import { reactRouterDevTools } from "react-router-devtools";
 import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
-import devtoolsJson from "vite-plugin-devtools-json";
+import pluginReact from "@vitejs/plugin-react";
+import { reactRouter as pluginReactRouter } from "@react-router/dev/vite";
+import pluginTSConfigPaths from "vite-tsconfig-paths";
+import pluginDevtoolsJson from "vite-plugin-devtools-json";
 
 const isStorybook = process.argv.join("").includes("storybook");
 
@@ -16,9 +15,9 @@ const isStorybook = process.argv.join("").includes("storybook");
  */
 export default defineConfig({
   plugins: [
-    ...(isStorybook ? [react()] : [reactRouterDevTools(), reactRouter()]),
-    tsconfigPaths(),
-    devtoolsJson(),
+    ...(isStorybook ? [pluginReact()] : [pluginReactRouter()]),
+    pluginTSConfigPaths(),
+    pluginDevtoolsJson(),
   ],
   resolve: {
     alias: [

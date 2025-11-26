@@ -7,10 +7,8 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
 } from "react-router";
 import { useTranslation } from "react-i18next";
-import { useChangeLanguage } from "remix-i18next/react";
 import {
   ColorSchemeScript,
   DirectionProvider,
@@ -23,21 +21,20 @@ import { createTheme } from "~/utils/theme";
 import type { Route } from "./+types/root";
 import "./app.css";
 
-export const unstable_middleware: Route.unstable_MiddlewareFunction[] = [
+export const middleware: Route.MiddlewareFunction[] = [
   i18nMiddleware,
   rtkMiddleware.server,
 ];
 
-export const unstable_clientMiddleware: Route.unstable_ClientMiddlewareFunction[] =
-  [rtkMiddleware.client];
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  rtkMiddleware.client,
+];
 
 export const loader = async ({ context }: Route.LoaderArgs) => {
   const locale = getLocale(context);
 
   return data(
-    {
-      locale,
-    },
+    {},
     {
       headers: {
         "Set-Cookie": await localeCookie.serialize(locale),
@@ -51,17 +48,8 @@ export const loader = async ({ context }: Route.LoaderArgs) => {
  * it acts as your document's "app shell" for all route components, HydrateFallback, and ErrorBoundary
  */
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
-  const { locale } = useLoaderData<typeof loader>();
   const { i18n } = useTranslation(["common"]);
   useHydrateStore();
-
-  /**
-   * this hook will change the i18n instance language to the current locale
-   * detected by the loader, this way, when we do something to change the
-   * language, this locale will change and i18next will load the correct
-   * translation files
-   */
-  useChangeLanguage(locale);
 
   return (
     <html lang={i18n.language} dir={i18n.dir()} {...mantineHtmlProps}>

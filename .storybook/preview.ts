@@ -1,4 +1,4 @@
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 import { i18nConfig } from "~/locales/i18nConfig";
 import { I18n as decoratorI18n } from "./decorators/i18n";
 import { Mantine as decoratorMantine } from "./decorators/mantine";
@@ -8,12 +8,13 @@ export const decorators = [decoratorI18n, decoratorMantine];
 
 const preview: Preview = {
   parameters: {
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/i,
-      },
+    layout: "fullscreen",
+    options: {
+      showPanel: false,
+      storySort: (a: { title: string }, b: { title: string }) =>
+        a.title.localeCompare(b.title, undefined, { numeric: true }),
     },
+    backgrounds: { disable: true },
   },
   globalTypes: {
     locale: {
@@ -28,6 +29,18 @@ const preview: Preview = {
         })),
         showName: true,
         dynamicTitle: true,
+      },
+    },
+    theme: {
+      name: "Theme",
+      description: "Mantine color scheme",
+      defaultValue: "light",
+      toolbar: {
+        icon: "mirror",
+        items: [
+          { value: "light", title: "Light" },
+          { value: "dark", title: "Dark" },
+        ],
       },
     },
   },

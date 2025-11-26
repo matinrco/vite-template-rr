@@ -4,13 +4,17 @@ import { getStoreFromContext } from "~/rtk/store";
 import { postApis } from "~/rtk/query/post";
 import { HYDRATE_STATE_KEY } from "~/rtk/constants";
 
-export const meta: Route.MetaFunction = ({ data, params: { id } }) => [
+export const meta: Route.MetaFunction = ({ loaderData, params: { id } }) => [
   {
-    title: data?.post ? data?.post?.title || "---" : `Post not found`,
+    title: loaderData?.post
+      ? loaderData?.post?.title || "---"
+      : `Post not found`,
   },
   {
     name: "description",
-    content: data?.post ? data?.post?.body || "---" : `Post ${id} not found`,
+    content: loaderData?.post
+      ? loaderData?.post?.body || "---"
+      : `Post ${id} not found`,
   },
 ];
 

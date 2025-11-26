@@ -1,7 +1,8 @@
 import {
-  type unstable_RouterContextProvider as RouterContextProvider,
-  type unstable_MiddlewareFunction as MiddlewareFunction,
-  unstable_createContext as createContext,
+  type RouterContextProvider,
+  type MiddlewareFunction,
+  type DataStrategyResult,
+  createContext,
   useMatches,
 } from "react-router";
 import {
@@ -79,7 +80,7 @@ const rtkContext = createContext<AppStore | null>(null);
 class StoreNotFoundError extends Error {}
 
 export const getStoreFromContext = (
-  context: RouterContextProvider,
+  context: Readonly<RouterContextProvider>,
 ): AppStore => {
   const store = context.get(rtkContext);
   if (!store) {
@@ -104,7 +105,7 @@ export const getClientStore = (): AppStore => {
 };
 
 export const rtkMiddleware: {
-  client: MiddlewareFunction<undefined>;
+  client: MiddlewareFunction<Record<string, DataStrategyResult>>;
   server: MiddlewareFunction<Response>;
 } = {
   client: async ({ context }, next) => {
@@ -128,8 +129,9 @@ export const useHydrateStore = () => {
   const dispatch = useAppDispatch();
 
   const incomingStores = matches
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .map((match) => (match.data as any)?.[HYDRATE_STATE_KEY] as RootState)
+    .map(
+      (match) => (match.loaderData as never)?.[HYDRATE_STATE_KEY] as RootState,
+    )
     .filter(Boolean);
 
   if (incomingStores.length === 0) return;
@@ -143,5 +145,6 @@ export const useHydrateStore = () => {
     dispatch(APP_HYDRATE(incomingStore));
   });
 
+  // eslint-disable-next-line react-hooks/globals
   lastHydrationKey = currentKey;
 };
