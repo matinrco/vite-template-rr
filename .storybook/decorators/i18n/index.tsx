@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import type { StoryFn, StoryContext } from "@storybook/react";
+import type { StoryFn, StoryContext } from "@storybook/react-vite";
 import { I18nextProvider } from "react-i18next";
 import { i18n } from "./instance";
 
