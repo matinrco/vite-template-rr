@@ -7,7 +7,7 @@ import "~/app.css";
 export const decorators = [decoratorI18n, decoratorMantine];
 
 const preview: Preview = {
-  parameters: {},
+  parameters: { backgrounds: { disable: true } },
   globalTypes: {
     locale: {
       name: "Locale",
