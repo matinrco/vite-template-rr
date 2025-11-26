@@ -129,8 +129,9 @@ export const useHydrateStore = () => {
   const dispatch = useAppDispatch();
 
   const incomingStores = matches
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .map((match) => (match.data as any)?.[HYDRATE_STATE_KEY] as RootState)
+    .map(
+      (match) => (match.loaderData as never)?.[HYDRATE_STATE_KEY] as RootState,
+    )
     .filter(Boolean);
 
   if (incomingStores.length === 0) return;
