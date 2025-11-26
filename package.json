@@ -11,7 +11,7 @@
     "stylelint": "stylelint '**/*.{css,scss,sass}'",
     "type-check": "react-router typegen && tsc",
     "format": "prettier --write .",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006 --no-version-updates --disable-telemetry",
     "build-storybook": "storybook build",
     "postinstall": "husky"
   },
