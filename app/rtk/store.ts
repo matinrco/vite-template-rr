@@ -145,5 +145,6 @@ export const useHydrateStore = () => {
     dispatch(APP_HYDRATE(incomingStore));
   });
 
+  // eslint-disable-next-line react-hooks/globals
   lastHydrationKey = currentKey;
 };
