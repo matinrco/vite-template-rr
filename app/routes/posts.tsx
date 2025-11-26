@@ -5,9 +5,9 @@ import { getStoreFromContext } from "~/rtk/store";
 import { postApis } from "~/rtk/query/post";
 import { HYDRATE_STATE_KEY } from "~/rtk/constants";
 
-export const meta: Route.MetaFunction = ({ data }) => [
+export const meta: Route.MetaFunction = ({ loaderData }) => [
   {
-    title: `Posts ${Array.isArray(data?.posts) ? data.posts.length : 0} items`,
+    title: `Posts ${Array.isArray(loaderData?.posts) ? loaderData.posts.length : 0} items`,
   },
   { name: "description", content: "list of published posts" },
 ];
