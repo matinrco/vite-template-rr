@@ -7,15 +7,7 @@ import "~/app.css";
 export const decorators = [decoratorI18n, decoratorMantine];
 
 const preview: Preview = {
-  parameters: {
-    layout: "fullscreen",
-    options: {
-      showPanel: false,
-      storySort: (a: { title: string }, b: { title: string }) =>
-        a.title.localeCompare(b.title, undefined, { numeric: true }),
-    },
-    backgrounds: { disable: true },
-  },
+  parameters: {},
   globalTypes: {
     locale: {
       name: "Locale",
