@@ -59,7 +59,7 @@
     "eslint-plugin-storybook": "^10.1.0",
     "globals": "^16.5.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.4.3",
+    "lint-staged": "^16.2.7",
     "postcss": "^8.5.6",
     "postcss-simple-vars": "^7.0.1",
     "prettier": "^3.5.3",
