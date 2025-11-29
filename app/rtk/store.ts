@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   type RouterContextProvider,
   type MiddlewareFunction,
@@ -16,7 +17,7 @@ import {
   combineSlices,
 } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, useStore } from "react-redux";
-import { isBrowser } from "~/utils/environment";
+import { isBrowser, isServer } from "~/utils/environment";
 import { HYDRATE_ACTION, HYDRATE_STATE_KEY } from "./constants";
 import { slice as postApiSlice } from "./query/post/slice";
 import { slice as weatherApiSlice } from "./query/weather/slice";
@@ -122,9 +123,8 @@ export const rtkMiddleware: {
   },
 };
 
-let lastHydrationKey = "";
-
 export const useHydrateStore = () => {
+  const [lastHydrationKey, setLastHydrationKey] = useState("");
   const matches = useMatches();
   const dispatch = useAppDispatch();
 
@@ -134,17 +134,17 @@ export const useHydrateStore = () => {
     )
     .filter(Boolean);
 
-  if (incomingStores.length === 0) return;
-
   // build a stable key to detect unique hydration data
   const currentKey = JSON.stringify(incomingStores);
 
-  if (currentKey === lastHydrationKey) return;
-
-  incomingStores.forEach((incomingStore) => {
-    dispatch(APP_HYDRATE(incomingStore));
-  });
-
-  // eslint-disable-next-line react-hooks/globals
-  lastHydrationKey = currentKey;
+  if (isServer) {
+    incomingStores.forEach((incomingStore) => {
+      dispatch(APP_HYDRATE(incomingStore));
+    });
+  } else if (currentKey !== lastHydrationKey) {
+    incomingStores.forEach((incomingStore) => {
+      dispatch(APP_HYDRATE(incomingStore));
+    });
+    setLastHydrationKey(currentKey);
+  }
 };
