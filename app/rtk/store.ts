@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   type RouterContextProvider,
   type MiddlewareFunction,
@@ -124,7 +124,8 @@ export const rtkMiddleware: {
 };
 
 export const useHydrateStore = () => {
-  const [lastHydrationKey, setLastHydrationKey] = useState("");
+  const [hydrationKey, setHydrationKey] = useState("");
+  const lastReHydrationKey = useRef("");
   const matches = useMatches();
   const dispatch = useAppDispatch();
 
@@ -134,17 +135,42 @@ export const useHydrateStore = () => {
     )
     .filter(Boolean);
 
-  // build a stable key to detect unique hydration data
+  /**
+   * build a stable key to detect unique hydration data
+   * for future performance optimization we can create store hash.
+   */
   const currentKey = JSON.stringify(incomingStores);
 
   if (isServer) {
     incomingStores.forEach((incomingStore) => {
       dispatch(APP_HYDRATE(incomingStore));
     });
-  } else if (currentKey !== lastHydrationKey) {
+  } else if (
+    /**
+     * only run during render (hydration) in browser
+     */
+    !hydrationKey &&
+    isBrowser
+  ) {
     incomingStores.forEach((incomingStore) => {
       dispatch(APP_HYDRATE(incomingStore));
     });
-    setLastHydrationKey(currentKey);
+    setHydrationKey(currentKey);
   }
+
+  /**
+   * rehydrate in browser on state change or navigation
+   */
+  useEffect(() => {
+    if (
+      lastReHydrationKey.current
+        ? currentKey !== lastReHydrationKey.current
+        : currentKey !== hydrationKey
+    ) {
+      incomingStores.forEach((incomingStore) => {
+        dispatch(APP_HYDRATE(incomingStore));
+      });
+      lastReHydrationKey.current = currentKey;
+    }
+  });
 };
