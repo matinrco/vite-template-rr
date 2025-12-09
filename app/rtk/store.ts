@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import {
   type RouterContextProvider,
   type MiddlewareFunction,
@@ -15,13 +15,22 @@ import {
   configureStore,
   createAction,
   combineSlices,
+  createSlice,
 } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, useStore } from "react-redux";
+import { v4 as uuidV4 } from "uuid";
 import { isBrowser, isServer } from "~/utils/environment";
 import { HYDRATE_ACTION, HYDRATE_STATE_KEY } from "./constants";
 import { slice as postApiSlice } from "./query/post/slice";
 import { slice as weatherApiSlice } from "./query/weather/slice";
 import { slice as sharedSlice } from "./slices/shared";
+
+/**
+ * address created slices here (normal or api/query)
+ * don't touch anything else :)
+ */
+const slices = [weatherApiSlice, postApiSlice, sharedSlice];
+const apiSlices = [weatherApiSlice, postApiSlice];
 
 /**
  * you can add any other value here if you want to make it accessible in rtk context.
@@ -40,12 +49,27 @@ type DefaultMiddlewareOptions = {
 };
 
 /**
+ * static slice to track store meta data
+ */
+const metaSlice = createSlice({
+  name: "meta",
+  initialState: { id: "" },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(APP_HYDRATE, (state, action) => ({
+      ...state,
+      ...action.payload.meta,
+    }));
+  },
+});
+
+/**
  * we need to create APP_HYDRATE before calling combineSlices
  * cuz we use APP_HYDRATE in slices. prevent shitty circular dependency!
  */
 export const APP_HYDRATE = createAction<RootState>(HYDRATE_ACTION);
 
-const reducer = combineSlices(postApiSlice, weatherApiSlice, sharedSlice);
+const reducer = combineSlices(metaSlice, ...slices);
 
 const makeStore = (context: Context) =>
   configureStore({
@@ -55,7 +79,12 @@ const makeStore = (context: Context) =>
         thunk: {
           extraArgument: context,
         },
-      }).concat(postApiSlice.middleware, weatherApiSlice.middleware),
+      }).concat(...apiSlices.map((s) => s.middleware)),
+    preloadedState: {
+      meta: {
+        id: uuidV4(),
+      },
+    },
   });
 
 type AppStore = ReturnType<typeof makeStore>;
@@ -124,8 +153,7 @@ export const rtkMiddleware: {
 };
 
 export const useHydrateStore = () => {
-  const [hydrationKey, setHydrationKey] = useState("");
-  const lastReHydrationKey = useRef("");
+  const lastHydrationId = useRef("");
   const matches = useMatches();
   const dispatch = useAppDispatch();
 
@@ -135,42 +163,22 @@ export const useHydrateStore = () => {
     )
     .filter(Boolean);
 
-  /**
-   * build a stable key to detect unique hydration data
-   * for future performance optimization we can create store hash.
-   */
-  const currentKey = JSON.stringify(incomingStores);
+  // all incoming stores should have same id
+  const incomingStoresId =
+    Array.isArray(incomingStores) && incomingStores.length !== 0
+      ? incomingStores[0].meta.id
+      : "";
 
   if (isServer) {
     incomingStores.forEach((incomingStore) => {
       dispatch(APP_HYDRATE(incomingStore));
     });
-  } else if (
-    /**
-     * only run during render (hydration) in browser
-     */
-    !hydrationKey &&
-    isBrowser
-  ) {
+    // eslint-disable-next-line react-hooks/refs
+  } else if (isBrowser && lastHydrationId.current !== incomingStoresId) {
     incomingStores.forEach((incomingStore) => {
       dispatch(APP_HYDRATE(incomingStore));
     });
-    setHydrationKey(currentKey);
+    // eslint-disable-next-line react-hooks/refs
+    lastHydrationId.current = incomingStoresId;
   }
-
-  /**
-   * rehydrate in browser on state change or navigation
-   */
-  useEffect(() => {
-    if (
-      lastReHydrationKey.current
-        ? currentKey !== lastReHydrationKey.current
-        : currentKey !== hydrationKey
-    ) {
-      incomingStores.forEach((incomingStore) => {
-        dispatch(APP_HYDRATE(incomingStore));
-      });
-      lastReHydrationKey.current = currentKey;
-    }
-  });
 };
