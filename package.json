@@ -39,6 +39,8 @@
     "zod": "^4.1.13"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.2.0",
+    "@commitlint/config-conventional": "^20.2.0",
     "@react-router/dev": "^7.10.1",
     "@storybook/addon-docs": "^10.1.0",
     "@storybook/addon-onboarding": "^10.1.0",
