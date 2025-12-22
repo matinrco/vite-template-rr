@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import { i18nMiddleware, getLocale, localeCookie } from "~/locales/i18nServer";
 import { rtkMiddleware, useHydrateStore } from "~/rtk/store";
 import type { Route } from "./+types/root";
-import "./app.css";
+import "./styles/index.css";
 
 export const middleware: Route.MiddlewareFunction[] = [
   i18nMiddleware,
