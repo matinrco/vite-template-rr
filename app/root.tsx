@@ -4,6 +4,7 @@ import {
   MantineProvider,
   mantineHtmlProps,
 } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 import type { FC, PropsWithChildren } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -66,6 +67,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
             defaultColorScheme="auto"
             theme={createTheme({ dir: i18n.dir() })}
           >
+            <Notifications />
             {children}
           </MantineProvider>
         </DirectionProvider>

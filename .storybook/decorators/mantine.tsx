@@ -3,6 +3,7 @@ import {
   DirectionProvider,
   MantineProvider,
 } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 import type { StoryContext, StoryFn } from "@storybook/react";
 import i18n from "i18next";
 import { createTheme } from "~/utils/theme";
@@ -18,6 +19,7 @@ export const Mantine = (Story: StoryFn, context: StoryContext) => {
         forceColorScheme={scheme}
       >
         <ColorSchemeScript />
+        <Notifications />
         {Story(context.args, context)}
       </MantineProvider>
     </DirectionProvider>
