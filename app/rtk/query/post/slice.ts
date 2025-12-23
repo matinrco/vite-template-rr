@@ -1,8 +1,8 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createApi } from "@reduxjs/toolkit/query/react";
+import { HYDRATE_ACTION } from "~/rtk/constants";
 import { baseQuery } from "~/rtk/query/baseQuery";
 import type { RootState } from "~/rtk/store";
-import { HYDRATE_ACTION } from "~/rtk/constants";
 
 export const slice = createApi({
   reducerPath: "postApi",

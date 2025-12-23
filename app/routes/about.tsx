@@ -1,6 +1,6 @@
 import type { FC } from "react";
-import type { Route } from "./+types/about";
 import { useTranslation } from "react-i18next";
+import type { Route } from "./+types/about";
 
 export const meta: Route.MetaFunction = () => [
   {

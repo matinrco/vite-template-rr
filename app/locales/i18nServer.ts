@@ -1,5 +1,5 @@
-import { createCookie } from "react-router";
 import { initReactI18next as i18nPluginInitReact } from "react-i18next";
+import { createCookie } from "react-router";
 import { createI18nextMiddleware as createI18nMiddleware } from "remix-i18next/middleware";
 import { i18nConfig } from "~/locales/i18nConfig";
 

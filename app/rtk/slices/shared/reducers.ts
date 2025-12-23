@@ -1,4 +1,4 @@
-import type { PayloadAction, Draft } from "@reduxjs/toolkit";
+import type { Draft, PayloadAction } from "@reduxjs/toolkit";
 import type { State } from "./state";
 
 export const updateCounter = (

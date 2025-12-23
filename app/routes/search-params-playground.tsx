@@ -1,6 +1,6 @@
+import { Button, Container, Group } from "@mantine/core";
 import type { FC } from "react";
 import { useSearchParams } from "react-router";
-import { Button, Container, Group } from "@mantine/core";
 import type { Route } from "./+types/search-params-playground";
 
 const Component: FC<Route.ComponentProps> = () => {

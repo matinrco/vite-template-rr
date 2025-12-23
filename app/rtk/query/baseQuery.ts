@@ -6,8 +6,7 @@ import type {
 } from "@reduxjs/toolkit/query";
 import { Mutex } from "async-mutex";
 import queryString from "query-string";
-import type { Context } from "~/rtk/store";
-import type { RootState } from "~/rtk/store";
+import type { Context, RootState } from "~/rtk/store";
 // import { api } from "~/rtk/query";
 import { isServer } from "~/utils/environment";
 

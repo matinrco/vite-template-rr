@@ -1,9 +1,9 @@
-import type { StoryFn, StoryContext } from "@storybook/react";
 import {
+  ColorSchemeScript,
   DirectionProvider,
   MantineProvider,
-  ColorSchemeScript,
 } from "@mantine/core";
+import type { StoryContext, StoryFn } from "@storybook/react";
 import i18n from "i18next";
 import { createTheme } from "~/utils/theme";
 

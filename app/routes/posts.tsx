@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import { Link, href } from "react-router";
-import type { Route } from "./+types/posts";
-import { getStoreFromContext } from "~/rtk/store";
-import { postApis } from "~/rtk/query/post";
 import { HYDRATE_STATE_KEY } from "~/rtk/constants";
+import { postApis } from "~/rtk/query/post";
+import { getStoreFromContext } from "~/rtk/store";
+import type { Route } from "./+types/posts";
 
 export const meta: Route.MetaFunction = ({ loaderData }) => [
   {

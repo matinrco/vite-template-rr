@@ -1,5 +1,5 @@
-import type { AppThunk } from "~/rtk/store";
 import { postApis } from "~/rtk/query/post";
+import type { AppThunk } from "~/rtk/store";
 import { slice } from "./index";
 
 export const increment =

@@ -1,11 +1,12 @@
-import globals from "globals";
 import pluginJs from "@eslint/js";
-import pluginTs from "typescript-eslint";
+import pluginImport from "eslint-plugin-import";
+import pluginPrettier from "eslint-plugin-prettier/recommended";
 import pluginReact from "eslint-plugin-react";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
-import pluginPrettier from "eslint-plugin-prettier/recommended";
 import pluginStorybook from "eslint-plugin-storybook";
+import globals from "globals";
+import pluginTs from "typescript-eslint";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -17,8 +18,61 @@ export default [
       globals: { ...globals.browser, ...globals.node },
     },
   },
+  // customize generic rules
+  {
+    rules: {
+      "no-restricted-syntax": [
+        "error",
+        "FunctionDeclaration",
+        {
+          selector: "FunctionExpression",
+        },
+      ],
+    },
+  },
   // js
   pluginJs.configs.recommended,
+  // import
+  {
+    plugins: {
+      import: pluginImport,
+    },
+    settings: {
+      "import/internal-regex": "^~/",
+    },
+    rules: {
+      "import/first": "error",
+      "import/newline-after-import": "error",
+      "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
+      "import/no-duplicates": "error",
+      "import/enforce-node-protocol-usage": ["error", "never"],
+      "import/no-absolute-path": "error",
+      "import/order": [
+        "error",
+        {
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            "sibling",
+            "index",
+          ],
+          pathGroups: [
+            {
+              pattern: "**/*.css",
+              group: "index",
+              position: "after",
+            },
+          ],
+          "newlines-between": "never",
+          warnOnUnassignedImports: true,
+          named: true,
+          alphabetize: { order: "asc" },
+        },
+      ],
+    },
+  },
   // react
   {
     ...pluginReact.configs.flat.recommended,

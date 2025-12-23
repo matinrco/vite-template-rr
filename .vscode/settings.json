@@ -16,11 +16,17 @@
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "cSpell.language": "en,fa-IR",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
   "cssVariables.lookupFiles": [
     "**/*.css",
     "**/*.scss",
     "**/*.sass",
     "**/*.less",
     "node_modules/@mantine/core/styles.css"
-  ]
+  ],
+  "conventionalCommits.scopes": ["common"]
 }

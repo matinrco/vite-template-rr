@@ -1,23 +1,24 @@
-import { useRef } from "react";
 import {
-  type RouterContextProvider,
-  type MiddlewareFunction,
-  type DataStrategyResult,
-  createContext,
-  useMatches,
-} from "react-router";
-import {
-  type ThunkAction,
-  type UnknownAction,
-  type ActionCreatorInvariantMiddlewareOptions,
-  type ImmutableStateInvariantMiddlewareOptions,
-  type SerializableStateInvariantMiddlewareOptions,
+  combineSlices,
   configureStore,
   createAction,
-  combineSlices,
   createSlice,
 } from "@reduxjs/toolkit";
+import type {
+  ActionCreatorInvariantMiddlewareOptions,
+  ImmutableStateInvariantMiddlewareOptions,
+  SerializableStateInvariantMiddlewareOptions,
+  ThunkAction,
+  UnknownAction,
+} from "@reduxjs/toolkit";
+import { useRef } from "react";
 import { useDispatch, useSelector, useStore } from "react-redux";
+import { createContext, useMatches } from "react-router";
+import type {
+  DataStrategyResult,
+  MiddlewareFunction,
+  RouterContextProvider,
+} from "react-router";
 import { v4 as uuidV4 } from "uuid";
 import { isBrowser, isServer } from "~/utils/environment";
 import { HYDRATE_ACTION, HYDRATE_STATE_KEY } from "./constants";

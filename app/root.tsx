@@ -1,25 +1,25 @@
-import type { FC, PropsWithChildren } from "react";
-import {
-  data,
-  isRouteErrorResponse,
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "react-router";
-import { useTranslation } from "react-i18next";
 import {
   ColorSchemeScript,
   DirectionProvider,
   MantineProvider,
   mantineHtmlProps,
 } from "@mantine/core";
-import { i18nMiddleware, getLocale, localeCookie } from "~/locales/i18nServer";
+import type { FC, PropsWithChildren } from "react";
+import { useTranslation } from "react-i18next";
+import {
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  data,
+  isRouteErrorResponse,
+} from "react-router";
+import { getLocale, i18nMiddleware, localeCookie } from "~/locales/i18nServer";
 import { rtkMiddleware, useHydrateStore } from "~/rtk/store";
 import { createTheme } from "~/utils/theme";
 import type { Route } from "./+types/root";
-import "./app.css";
+import "./styles/index.css";
 
 export const middleware: Route.MiddlewareFunction[] = [
   i18nMiddleware,

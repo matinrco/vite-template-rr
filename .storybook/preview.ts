@@ -2,7 +2,7 @@ import type { Preview } from "@storybook/react-vite";
 import { i18nConfig } from "~/locales/i18nConfig";
 import { I18n as decoratorI18n } from "./decorators/i18n";
 import { Mantine as decoratorMantine } from "./decorators/mantine";
-import "~/app.css";
+import "~/styles/index.css";
 
 export const decorators = [decoratorI18n, decoratorMantine];
 

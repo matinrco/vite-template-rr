@@ -1,4 +1,5 @@
-import { type PropsWithChildren, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import type { PropsWithChildren } from "react";
 
 export const NoSSR = ({
   children,
