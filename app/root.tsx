@@ -1,15 +1,15 @@
 import type { FC, PropsWithChildren } from "react";
+import { useTranslation } from "react-i18next";
 import {
-  data,
-  isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  data,
+  isRouteErrorResponse,
 } from "react-router";
-import { useTranslation } from "react-i18next";
-import { i18nMiddleware, getLocale, localeCookie } from "~/locales/i18nServer";
+import { getLocale, i18nMiddleware, localeCookie } from "~/locales/i18nServer";
 import { rtkMiddleware, useHydrateStore } from "~/rtk/store";
 import type { Route } from "./+types/root";
 import "./styles/index.css";

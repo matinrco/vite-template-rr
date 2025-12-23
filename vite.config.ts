@@ -1,8 +1,8 @@
-import { defineConfig } from "vite";
-import pluginReact from "@vitejs/plugin-react";
 import { reactRouter as pluginReactRouter } from "@react-router/dev/vite";
-import pluginTSConfigPaths from "vite-tsconfig-paths";
+import pluginReact from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 import pluginDevtoolsJson from "vite-plugin-devtools-json";
+import pluginTSConfigPaths from "vite-tsconfig-paths";
 
 const isStorybook = process.argv.join("").includes("storybook");
 

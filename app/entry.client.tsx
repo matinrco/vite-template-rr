@@ -1,15 +1,15 @@
-import { startTransition, StrictMode } from "react";
-import { hydrateRoot } from "react-dom/client";
-import { HydratedRouter } from "react-router/dom";
 import i18n from "i18next";
+import i18nPluginBrowserLanguageDetector from "i18next-browser-languagedetector";
+import i18nPluginHttpBackend from "i18next-http-backend";
+import { StrictMode, startTransition } from "react";
+import { hydrateRoot } from "react-dom/client";
 import {
   I18nextProvider as I18nProvider,
   initReactI18next as i18nPluginInitReact,
 } from "react-i18next";
-import i18nPluginBrowserLanguageDetector from "i18next-browser-languagedetector";
-import i18nPluginHttpBackend from "i18next-http-backend";
-import { getInitialNamespaces } from "remix-i18next/client";
 import { Provider as ReactReduxProvider } from "react-redux";
+import { HydratedRouter } from "react-router/dom";
+import { getInitialNamespaces } from "remix-i18next/client";
 import { i18nConfig } from "~/locales/i18nConfig";
 import { getClientStore } from "~/rtk/store";
 

@@ -1,17 +1,12 @@
-import { PassThrough } from "node:stream";
-import {
-  type EntryContext,
-  type RouterContextProvider,
-  ServerRouter,
-} from "react-router";
+import { PassThrough } from "stream";
 import { createReadableStreamFromReadable } from "@react-router/node";
-import {
-  type RenderToPipeableStreamOptions,
-  renderToPipeableStream,
-} from "react-dom/server";
 import { isbot } from "isbot";
+import { renderToPipeableStream } from "react-dom/server";
+import type { RenderToPipeableStreamOptions } from "react-dom/server";
 import { I18nextProvider as I18nProvider } from "react-i18next";
 import { Provider as ReactReduxProvider } from "react-redux";
+import { ServerRouter } from "react-router";
+import type { EntryContext, RouterContextProvider } from "react-router";
 import { getI18nInstance } from "~/locales/i18nServer";
 import { getStoreFromContext } from "~/rtk/store";
 
@@ -57,10 +52,10 @@ const handleRequest = async (
         </ReactReduxProvider>
       </I18nProvider>,
       {
-        [readyOption]() {
+        [readyOption]: () => {
           shellRendered = true;
           const body = new PassThrough({
-            final(callback) {
+            final: (callback) => {
               // clear the timeout to prevent retaining the closure and memory leak
               clearTimeout(timeoutId);
               timeoutId = undefined;
@@ -80,10 +75,10 @@ const handleRequest = async (
             }),
           );
         },
-        onShellError(error: unknown) {
+        onShellError: (error: unknown) => {
           reject(error);
         },
-        onError(error: unknown) {
+        onError: (error: unknown) => {
           responseStatusCode = 500;
           // log streaming rendering errors from inside the shell.  Don't log
           // errors encountered during initial shell rendering since they'll

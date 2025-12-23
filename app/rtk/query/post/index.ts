@@ -2,10 +2,10 @@ import { slice } from "./slice";
 import type {
   CreatePostReq,
   CreatePostRes,
-  GetPostsReq,
-  GetPostsRes,
   GetPostReq,
   GetPostRes,
+  GetPostsReq,
+  GetPostsRes,
 } from "./types";
 
 export const postApis = slice.injectEndpoints({

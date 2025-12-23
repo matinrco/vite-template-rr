@@ -1,8 +1,9 @@
-import { mergeWith, isEqual } from "lodash-es";
 import { createSlice } from "@reduxjs/toolkit";
+import { isEqual, mergeWith } from "lodash-es";
 import { APP_HYDRATE } from "~/rtk/store";
-import { type State, initialState } from "./state";
 import * as reducers from "./reducers";
+import { initialState } from "./state";
+import type { State } from "./state";
 import * as thunkActions from "./thunkActions";
 
 const sliceName = "shared";
