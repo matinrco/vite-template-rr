@@ -18,7 +18,6 @@ const preview: Preview = {
           value: locale,
           title: locale.toUpperCase(),
         })),
-        showName: true,
         dynamicTitle: true,
       },
     },
