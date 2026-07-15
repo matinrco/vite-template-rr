@@ -2,8 +2,6 @@ import path from "path";
 import { reactRouter as pluginReactRouter } from "@react-router/dev/vite";
 import pluginReact from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import pluginDevtoolsJson from "vite-plugin-devtools-json";
-import pluginTSConfigPaths from "vite-tsconfig-paths";
 
 const isStorybook = process.argv.join("").includes("storybook");
 
@@ -14,12 +12,9 @@ const isStorybook = process.argv.join("").includes("storybook");
  * or the React Router plugin for our main application.
  */
 export default defineConfig({
-  plugins: [
-    ...(isStorybook ? [pluginReact()] : [pluginReactRouter()]),
-    pluginTSConfigPaths(),
-    pluginDevtoolsJson(),
-  ],
+  plugins: [...(isStorybook ? [pluginReact()] : [pluginReactRouter()])],
   resolve: {
+    tsconfigPaths: true,
     alias: [
       {
         /**

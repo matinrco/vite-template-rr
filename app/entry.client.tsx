@@ -9,7 +9,6 @@ import {
 } from "react-i18next";
 import { Provider as ReactReduxProvider } from "react-redux";
 import { HydratedRouter } from "react-router/dom";
-import { getInitialNamespaces } from "remix-i18next/client";
 import { i18nConfig } from "~/locales/i18nConfig";
 import { getClientStore } from "~/rtk/store";
 
@@ -22,10 +21,9 @@ const hydrate = async () => {
     // setup your backend
     .use(i18nPluginHttpBackend)
     .init({
-      // spread the configuration
       ...i18nConfig,
-      // this function detects the namespaces your routes rendered while SSR use
-      ns: getInitialNamespaces(),
+      // initial namespace to load
+      ns: [],
       backend: { loadPath: "/api/locales/{{lng}}/{{ns}}" },
       detection: {
         /**
