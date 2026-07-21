@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "skills": {
+    "build-modern-redux-apps/modern-redux": {
+      "source": "reduxjs/redux-toolkit",
+      "sourceType": "github",
+      "skillPath": "packages/toolkit/skills/build-modern-redux-apps/modern-redux/SKILL.md",
+      "computedHash": "f98b3f17f95c6483373cce4bd47095b704e5255d56ee40ef846960d6e1754de0"
+    },
+    "build-modern-redux-apps/redux-dataflow": {
+      "source": "reduxjs/redux-toolkit",
+      "sourceType": "github",
+      "skillPath": "packages/toolkit/skills/build-modern-redux-apps/redux-dataflow/SKILL.md",
+      "computedHash": "5f22161cc513c6aec7fadb4115255c283cdfe660351efc51bd669862e930154a"
+    },
+    "evolve-and-diagnose-redux-apps/debug-redux-toolkit-apps": {
+      "source": "reduxjs/redux-toolkit",
+      "sourceType": "github",
+      "skillPath": "packages/toolkit/skills/evolve-and-diagnose-redux-apps/debug-redux-toolkit-apps/SKILL.md",
+      "computedHash": "ea533d5f3f651a0c5bb70c2cebdb296e9bd5be7ae97b32a2458c547881e80073"
+    },
+    "evolve-and-diagnose-redux-apps/migrate-to-modern-redux": {
+      "source": "reduxjs/redux-toolkit",
+      "sourceType": "github",
+      "skillPath": "packages/toolkit/skills/evolve-and-diagnose-redux-apps/migrate-to-modern-redux/SKILL.md",
+      "computedHash": "5e14c1e72dee672ec5a49a5a3941b8720a48f75ef784f50a703ec105404dd273"
+    },
+    "manage-server-data/adopt-rtk-query": {
+      "source": "reduxjs/redux-toolkit",
+      "sourceType": "github",
+      "skillPath": "packages/toolkit/skills/manage-server-data/adopt-rtk-query/SKILL.md",
+      "computedHash": "258e013a383c45fb436530fc62e14096444889cc7442c1fe330b8831055a0642"
+    },
+    "manage-server-data/generate-rtk-query-from-openapi": {
+      "source": "reduxjs/redux-toolkit",
+      "sourceType": "github",
+      "skillPath": "packages/rtk-query-codegen-openapi/skills/manage-server-data/generate-rtk-query-from-openapi/SKILL.md",
+      "computedHash": "2db11711c468cdc804885c45d26e63a35419d4d4bfae2f971289fb353cf83909"
+    },
+    "model-redux-state/build-slices-and-selectors": {
+      "source": "reduxjs/redux-toolkit",
+      "sourceType": "github",
+      "skillPath": "packages/toolkit/skills/model-redux-state/build-slices-and-selectors/SKILL.md",
+      "computedHash": "61c8adf595e03835e5c7266bca6db8b8507f6b346c36a3442e6f9844af2b55ba"
+    },
+    "model-redux-state/design-state-ownership": {
+      "source": "reduxjs/redux-toolkit",
+      "sourceType": "github",
+      "skillPath": "packages/toolkit/skills/model-redux-state/design-state-ownership/SKILL.md",
+      "computedHash": "ae847188ad67d3893d4e8fc5869ac09a1f306581a87c69545ac5864a0d655f6a"
+    },
+    "orchestrate-side-effects/handle-side-effects": {
+      "source": "reduxjs/redux-toolkit",
+      "sourceType": "github",
+      "skillPath": "packages/toolkit/skills/orchestrate-side-effects/handle-side-effects/SKILL.md",
+      "computedHash": "1269290cbcf64b60dc11ef75b066dff5eaf89cfeeeae5822e3111221ed3657ee"
+    },
+    "react-router-framework-mode": {
+      "source": "remix-run/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/react-router-framework-mode/SKILL.md",
+      "computedHash": "26c5bdac2f686c47eb4c4b48b6cb52401cde1dc833e6d26408ddfb22ea83c5ca"
+    }
+  }
+}
