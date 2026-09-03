@@ -46,7 +46,7 @@ export default defineConfig({
          */
         find: /^react-date-object$/,
         replacement: path.resolve(
-          __dirname,
+          import.meta.dirname,
           "node_modules/react-date-object/dist/index.module.js",
         ),
       },
